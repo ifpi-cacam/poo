@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Programação Orientada a Objetos - Index of /aulas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: monospace;
+      background: #fff;
+      color: #000;
+      margin: 40px;
+    }
+
+    h1 {
+      font-size: 20px;
+      font-weight: normal;
+    }
+
+    a {
+      text-decoration: none;
+      color: #00f;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    hr {
+      margin: 15px 0;
+    }
+
+    /* Aula */
+    .aula {
+      margin-top: 10px;
+    }
+
+    .aula-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      padding: 5px 0;
+    }
+
+    .aula-header:hover {
+      background: #f5f5f5;
+    }
+
+    .titulo::before {
+      content: "📁 ";
+    }
+
+    .data {
+      font-size: 12px;
+      color: #555;
+      margin-left: 10px;
+    }
+
+    .btn-toggle {
+      font-family: monospace;
+      font-size: 12px;
+      border: 1px solid #000;
+      background: none;
+      cursor: pointer;
+      padding: 2px 6px;
+    }
+
+    /* Slide-down VISÍVEL */
+    .arquivos {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease-in-out;
+      margin-left: 20px;
+      border-left: 1px dashed #ccc;
+      padding-left: 10px;
+    }
+
+    .arquivos.ativo {
+      margin-top: 8px;
+    }
+
+    /* Cabeçalho estilo Apache */
+    .file-header {
+      margin-top: 10px;
+      font-size: 12px;
+      display: grid;
+      grid-template-columns: 1fr 150px 80px;
+      font-weight: bold;
+    }
+
+    .file-item {
+      display: grid;
+      grid-template-columns: 1fr 150px 80px;
+      font-size: 12px;
+      margin: 3px 0;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: #555;
+    }
+
+    /* Responsivo */
+    @media (max-width: 600px) {
+      .file-header,
+      .file-item {
+        grid-template-columns: 1fr;
+      }
+
+      .aula-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .btn-toggle {
+        margin-top: 5px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Programação Orientada a Objetos - Index of /aulas</h1>
+  <hr>
+
+<!-- 🔹 AULA 2 -->
+<div class="aula">
+  <div class="aula-header" onclick="toggleAula(this)">
+    <div>
+      <span class="titulo">Aula 02 - Modelagem com Classes e Objetos</span>
+      <span class="data">11/09/2026</span>
+    </div>
+    <button class="btn-toggle">[ arquivos ]</button>
+  </div>
+
+  <div class="arquivos">
+    <div class="file-header">
+      <span>Name</span>
+      <span>Last modified</span>
+      <span>Size</span>
+    </div>
+
+    <div class="file-item">
+      <span>
+        📄
+        <a href="aula02/Conta.java" target="_blank">
+          Conta.java
+        </a>
+      </span>
+      <span>17-Sep-2026</span>
+      <span>1Kb</span>
+    </div>
+
+    <div class="file-item">
+      <span>
+        📄
+        <a href="aula02/Principal.java" target="_blank">
+          Principal.java
+        </a>
+      </span>
+      <span>17-Sep-2026</span>
+      <span>1Kb</span>
+    </div>    
+
+   <div class="file-item">
+     <span>
+       📚
+       <a href="./aula02/java-orientado-a-objetos-rafael-santos.pdf" target="_blank">
+         livro-java-orientado-a-objetos-rafael-santos.pdf
+       </a>
+     </span>
+     <span>02-Sep-2026</span>
+     <span>2.3M</span>
+   </div>
+
+   <div class="file-item">
+     <span>
+       📚
+       <a href="./aula02/SI_Ednaldo_ProgramacaoOrientadaObj_2.pdf" target="_blank">
+         livro-introducao-poo-com-java-UFSCAR.pdf
+       </a>
+     </span>
+     <span>02-Sep-2026</span>
+     <span>10.5M</span>
+   </div>   
+
+   <div class="file-item">
+     <span>
+       📚
+       <a href="https://math.hws.edu/eck/cs124/downloads/javanotes7-linked.pdf" target="_blank">
+         book-intro-java-oo-ingles.pdf
+       </a>
+     </span>
+     <span>02-Sep-2026</span>
+     <span>3.5M</span>
+   </div>    
+
+   <div class="file-item">
+     <span>
+       📚
+       <a href="aula02/Java Como Programar_Deitel_8ed.pdf" target="_blank">
+         deitel-java-como-programar-8ed.pdf
+         <!-- original em: 
+         https://www.kufunda.net/publicdocs/Java%20Como%20Programar%20(Paul%20Deitel%20Harvey%20Deitel)%20(z-lib.org).pdf 
+         -->
+       </a>
+     </span>
+     <span>02-Sep-2026</span>
+     <span>36.2M</span>
+   </div>     
+
+  </div>
+</div>
+
+<!-- 🔹 AULA 1 -->
+<div class="aula">
+  <div class="aula-header" onclick="toggleAula(this)">
+    <div>
+      <span class="titulo">Aula 01 - Apresentação da Disciplina e Motivação</span>
+      <span class="data">09/09/2026</span>
+    </div>
+    <button class="btn-toggle">[ arquivos ]</button>
+  </div>
+
+  <div class="arquivos">
+    <div class="file-header">
+      <span>Name</span>
+      <span>Last modified</span>
+      <span>Size</span>
+    </div>
+
+    <div class="file-item">
+      <span>
+        📄
+        <a href="aula01/aula_01_apresentacao_disciplina_poo.pdf" target="_blank">
+          aula_01_apresentacao_disciplina_banco_de_dados.pdf
+        </a>
+      </span>
+      <span>09-Sep-2026</span>
+      <span>4.2M</span>
+    </div>
+
+    <div class="file-item">
+      <span>
+        📄
+        <a href="aula01/aula_01_apresentacao_disciplina_poo.pdf" target="_blank">
+          plano_de_ensino.pdf
+        </a>
+      </span>
+      <span>09-Sep-2026</span>
+      <span>1.2M</span>
+    </div>
+
+  </div>
+</div>
+
+  <hr>
+
+  <!-- 🔻 FOOTER -->
+  <div class="footer" id="server-info"></div>
+
+  <script>
+    function toggleAula(element) {
+      const arquivos = element.nextElementSibling;
+
+      if (arquivos.style.maxHeight) {
+        arquivos.style.maxHeight = null;
+        arquivos.classList.remove("ativo");
+      } else {
+        arquivos.style.maxHeight = arquivos.scrollHeight + "px";
+        arquivos.classList.add("ativo");
+      }
+    }
+
+    function getServerInfo() {
+      const host = window.location.hostname;
+      const path = window.location.pathname;
+      const lastModified = document.lastModified;
+
+      return `
+        Apache/2.4.41 (Unix) Server at ${host} Port 80<br>
+        Directory: ${path}<br>
+        Last modified: ${lastModified}
+      `;
+    }
+
+    document.getElementById("server-info").innerHTML = getServerInfo();
+  </script>
+
+</body>
+</html>
