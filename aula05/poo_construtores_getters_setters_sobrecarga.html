@@ -1,0 +1,730 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>POO - Construtores, Getters, Setters e Sobrecarga</title>
+<style>
+:root{--bg:#f5f7f8;--paper:#fff;--ink:#17272b;--mut:#617177;--line:#dfe6e7;--t:#0f766e;--soft:#e9f5f3;--gold:#a16207;--blue:#315b7d;--red:#a43f3f;--code:#0b1720;--codeInk:#e7f0f2;--green:#2f6f55;--violet:#5b4b8a}
+*{box-sizing:border-box}html,body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+body{overflow:hidden}.s{position:absolute;inset:0;display:none;overflow:auto;padding:5vh 7vw 86px;background:radial-gradient(circle at 94% 5%,#e8f5f2,transparent 25%),linear-gradient(#fff,#f8faf9)}
+.s.on{display:flex;flex-direction:column}.hero{justify-content:center}h1,h2{font-family:Georgia,serif;line-height:1.05;margin:.15em 0}h1{font-size:clamp(42px,6vw,78px);max-width:1180px}h2{font-size:clamp(32px,4.2vw,56px)}h3{margin:5px 0 9px}
+p{font-size:clamp(16px,1.42vw,21px);line-height:1.55;color:#34474d}.lead{font-size:clamp(20px,2vw,29px);max-width:1120px}.k{font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:var(--t);font-weight:800}.top{display:flex;justify-content:space-between;gap:20px}.n{font-size:13px;font-weight:800;color:#9aa6aa}
+.g2,.g3,.g4{display:grid;gap:18px;margin-top:22px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}.g40{display:grid;grid-template-columns:minmax(0,.84fr) minmax(0,1.16fr);gap:22px;align-items:start;margin-top:18px}.g55{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start;margin-top:18px}
+.c{background:#fff;border:1px solid var(--line);border-radius:17px;padding:21px;box-shadow:0 7px 22px #17333a0d}.c p,.c li{font-size:16px;line-height:1.45}.c ul{padding-left:22px}.c li{margin:7px 0}.tag{display:inline-block;padding:5px 9px;border-radius:99px;background:var(--soft);color:#115e59;font-size:11px;font-weight:800;text-transform:uppercase}.call{margin-top:20px;border-left:5px solid var(--t);background:var(--soft);padding:16px 20px;border-radius:0 12px 12px 0}.warn{border-left-color:var(--gold);background:#fff8e9}.danger{border-left-color:var(--red);background:#fff1f1}.case{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px 28px;margin-top:18px}.q{font-family:Georgia,serif;font-size:clamp(24px,2.8vw,39px);font-weight:700}.steps{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:24px 0}.steps span{background:#fff;border:1px solid var(--line);padding:10px 14px;border-radius:11px;font-weight:700}
+.diagram{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;margin-top:18px;overflow:auto}.diagram .mermaid{background:#fff!important;margin:0 auto;text-align:center;min-width:560px}.diagram svg{width:100%;height:auto;max-height:58vh}.diagram.sequence .mermaid{min-width:1120px}.diagram.sequence svg{width:auto;min-width:1120px;max-width:none;max-height:none}.diagram.compact .mermaid{min-width:420px}.cap{font-size:12px;color:#6f7f84;margin:8px 4px 0}
+.mermaid-fallback{border:1px dashed #c9d6d8;background:#f8fbfb;color:#274247}.mermaid-fallback::before{content:"Código Mermaid - renderização indisponível";display:block;margin-bottom:10px;font:800 12px Inter,Segoe UI,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#a16207}
+pre{margin:0;background:var(--code);color:var(--codeInk);border-radius:15px;padding:18px 20px;overflow:auto;font:14px/1.5 Consolas,'Courier New',monospace;box-shadow:inset 0 0 0 1px #ffffff12;max-height:64vh}.code-title{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#597077;margin:0 0 7px}.small pre{font-size:13px;line-height:1.42;max-height:58vh}
+.compare{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);margin-top:18px}th,td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left;font-size:15px;vertical-align:top}th{background:#eef6f4;color:#23484a}tr:last-child td{border-bottom:0}.mini{font-size:14px!important}.answer{border-left:4px solid var(--blue)}.bar{position:absolute;bottom:0;left:0;height:5px;background:var(--t)}
+.controls{position:fixed;z-index:10;right:20px;bottom:16px;background:#ffffffed;border:1px solid var(--line);border-radius:99px;padding:7px;box-shadow:0 10px 30px #17333a20}.controls button{border:0;background:#edf3f2;width:36px;height:36px;border-radius:50%;font-size:17px;cursor:pointer}.controls span{display:inline-block;width:72px;text-align:center;font-size:12px;font-weight:800;color:#65757a}.controls button:hover{background:#dbe9e6}
+.pill{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 11px;font-size:13px;font-weight:700;color:#53656a}.badge{width:9px;height:9px;border-radius:50%;background:var(--t)}.filelink{display:inline-flex;align-items:center;gap:9px;background:#eef6f4;border:1px solid #cfe1de;border-radius:12px;padding:12px 14px;font-weight:800;color:#115e59;text-decoration:none}.filelink:hover{background:#dff0ec}.mono{font-family:Consolas,'Courier New',monospace}.hl{color:#0f766e;font-weight:800}.mut{color:var(--mut)}
+@media(max-width:900px){body{overflow:auto}.s{position:relative;min-height:100vh}.g2,.g3,.g4,.g40,.g55{grid-template-columns:1fr}.controls{right:10px;bottom:10px}.diagram .mermaid{min-width:520px}pre{max-height:none}}
+@media print{body{overflow:visible}.controls{display:none}.s{display:flex!important;position:relative;min-height:100vh;page-break-after:always}}
+</style>
+</head>
+<body>
+<section class="s hero on">
+  <div class="k">Programação Orientada a Objetos · Java</div>
+  <h1>Construtores, Getters, Setters e Sobrecarga</h1>
+  <p class="lead">Continuação direta de classes, objetos, visibilidade e encapsulamento: agora vamos controlar como um objeto nasce, como seu estado pode ser lido ou alterado e como uma classe pode oferecer variações seguras de uma mesma operação.</p>
+  <div class="steps"><span>Encapsulamento</span><span>Construtor</span><span>get</span><span>set</span><span>Sobrecarga</span><span>Estado</span><span>UML</span></div>
+  <div class="pill"><span class="badge"></span>Aula de hoje · 02/10/2026</div>
+  <div class="bar"></div>
+</section>
+
+<section class="s">
+  <div class="top"><div><div class="k">1 · Continuidade</div><h2>O ponto de partida da aula anterior</h2></div><div class="n">01</div></div>
+  <div class="g3">
+    <div class="c"><span class="tag">Classe</span><h3>Modelo do domínio</h3><p>Define atributos e métodos. É o projeto que descreve quais dados um objeto terá e quais mensagens ele poderá receber.</p></div>
+    <div class="c"><span class="tag">Objeto</span><h3>Instância em execução</h3><p>Tem identidade, estado próprio e comportamento. Dois objetos da mesma classe podem ter valores totalmente diferentes.</p></div>
+    <div class="c"><span class="tag">Encapsulamento</span><h3>Estado protegido</h3><p>Atributos ficam privados e as alterações passam por métodos públicos. A classe decide quais mudanças são válidas.</p></div>
+  </div>
+  <div class="call"><b>Ideia central:</b> se o atributo é privado, o mundo externo não altera o objeto diretamente. Ele pede ao objeto que execute um método.</div>
+  <div class="bar"></div>
+</section>
+
+<section class="s">
+  <div class="top"><div><div class="k">2 · Problema</div><h2>Encapsular cria uma nova pergunta</h2></div><div class="n">02</div></div>
+  <div class="g40">
+    <div>
+      <p class="q">Se os atributos são privados, como inicializar e alterar o objeto corretamente?</p>
+      <div class="call warn"><b>Resposta da aula:</b> construtores definem o nascimento do objeto; getters e setters controlam leitura e alteração; sobrecarga cria alternativas de uso sem perder clareza.</div>
+    </div>
+    <div class="diagram compact">
+<pre class="mermaid">
+flowchart LR
+    A[Classe com atributos privados] --> B[Construtores]
+    B --> C[Objeto nasce com estado inicial]
+    C --> D[Getters leem estado]
+    C --> E[Setters validam alterações]
+    E --> F[Métodos de negócio alteram estado]
+    F --> G[Objeto consistente]
+</pre>
+      <div class="cap">Fluxo de proteção do estado em uma classe Java.</div>
+    </div>
+  </div>
+  <div class="bar"></div>
+</section>
+
+<section class="s">
+  <div class="top"><div><div class="k">3 · Construtores</div><h2>Como o objeto nasce</h2></div><div class="n">03</div></div>
+  <div class="g2">
+    <div class="c">
+      <h3>O que é</h3>
+      <p>Construtor é um bloco especial executado no momento do <span class="mono">new</span>. Ele prepara o estado inicial do objeto.</p>
+      <ul>
+        <li>Tem o mesmo nome da classe.</li>
+        <li>Não possui tipo de retorno.</li>
+        <li>Pode receber parâmetros.</li>
+        <li>Pode validar dados antes de gravar nos atributos.</li>
+      </ul>
+    </div>
+    <div><div class="code-title">Exemplo mínimo</div><pre>public class Aluno {
+    private String nome;
+    private double media;
+
+    public Aluno(String nome, double media) {
+        setNome(nome);
+        setMedia(media);
+    }
+}</pre></div>
+  </div>
+  <div class="call"><b>Boa prática:</b> quando a validação já existe no setter, o construtor pode chamar o setter para evitar regras duplicadas.</div>
+  <div class="bar"></div>
+</section>
+
+<section class="s">
+  <div class="top"><div><div class="k">4 · Get e Set</div><h2>Leitura e alteração controladas</h2></div><div class="n">04</div></div>
+  <table class="compare">
+    <tr><th>Elemento</th><th>Papel</th><th>Exemplo</th><th>Observação</th></tr>
+    <tr><td><b>getter</b></td><td>Permite ler um atributo privado.</td><td><span class="mono">getNome()</span></td><td>Normalmente não altera o estado.</td></tr>
+    <tr><td><b>setter</b></td><td>Permite alterar um atributo privado.</td><td><span class="mono">setNome(String nome)</span></td><td>Deve validar antes de modificar.</td></tr>
+    <tr><td><b>método de negócio</b></td><td>Representa uma ação do domínio.</td><td><span class="mono">depositar(100)</span></td><td>Altera estado com significado real no problema.</td></tr>
+  </table>
+  <div class="g2">
+    <div><div class="code-title">Setter com validação</div><pre>public void setMedia(double media) {
+    if (media >= 0 && media <= 10) {
+        this.media = media;
+    }
+}</pre></div>
+    <div><div class="code-title">Getter simples</div><pre>public double getMedia() {
+    return media;
+}</pre></div>
+  </div>
+  <div class="bar"></div>
+</section>
+
+<section class="s">
+  <div class="top"><div><div class="k">5 · Sobrecarga</div><h2>O mesmo nome, diferentes assinaturas</h2></div><div class="n">05</div></div>
+  <div class="g40">
+    <div>
+      <p class="q">Sobrecarga acontece quando uma classe possui métodos ou construtores com o mesmo nome, mas listas de parâmetros diferentes.</p>
+      <div class="c"><p><b>Assinatura</b> considera o nome do método e os tipos/quantidade/ordem dos parâmetros. O tipo de retorno sozinho não diferencia sobrecarga.</p></div>
+    </div>
+    <div><div class="code-title">Sobrecarga de método</div><pre>public void depositar(double valor) { ... }
+
+public void depositar(double valor, String descricao) { ... }
+
+public void depositar(double valor, String descricao,
+                      boolean emitirComprovante) { ... }</pre></div>
+  </div>
+  <div class="call danger"><b>Atenção:</b> sobrecarga não é criar vários métodos quase iguais por falta de organização. Ela é útil quando as variações representam formas naturais de executar a mesma operação.</div>
+  <div class="bar"></div>
+</section>
+
+<section class="s">
+  <div class="top"><div><div class="k">6 · Sobrecarga de construtores</div><h2>Formas diferentes de criar o mesmo tipo de objeto</h2></div><div class="n">06</div></div>
+  <div class="g2">
+    <div><div class="code-title">Classe com construtores sobrecarregados</div><pre>public class Cliente {
+    private String nome;
+    private String cpf;
+    private boolean ativo;
+
+    public Cliente() {
+        this("Sem nome", "Não informado", true);
+    }
+
+    public Cliente(String nome) {
+        this(nome, "Não informado", true);
+    }
+
+    public Cliente(String nome, String cpf, boolean ativo) {
+        setNome(nome);
+        setCpf(cpf);
+        this.ativo = ativo;
+    }
+}</pre></div>
+    <div class="c">
+      <h3>O papel do <span class="mono">this(...)</span></h3>
+      <p>Um construtor pode chamar outro construtor da mesma classe. Isso concentra a inicialização completa em um único lugar.</p>
+      <ul>
+        <li>Evita repetição de código.</li>
+        <li>Facilita manutenção das regras de criação.</li>
+        <li>Deve ser a primeira instrução do construtor.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="bar"></div>
+</section>
+
+<section class="s">
+  <div class="top"><div><div class="k">7 · Roteiro dos exemplos</div><h2>Do domínio ao código Java</h2></div><div class="n">07</div></div>
+  <div class="g4">
+    <div class="c"><h3>1. Especificar</h3><p>Descrever a classe: atributos privados, construtores, getters, setters e métodos públicos.</p></div>
+    <div class="c"><h3>2. Diagramar</h3><p>Usar Mermaid/UML para representar classe, objetos e mensagens que alteram estado.</p></div>
+    <div class="c"><h3>3. Codificar</h3><p>Implementar Java no padrão da aula: classe de domínio e classe <span class="mono">Programa</span>.</p></div>
+    <div class="c"><h3>4. Observar</h3><p>Comparar estado inicial, chamadas de métodos e estado final dos objetos.</p></div>
+  </div>
+  <div class="diagram compact">
+<pre class="mermaid">
+flowchart LR
+    D[Contexto de negócio] --> E[Especificação da classe]
+    E --> U[Diagrama UML de classe]
+    U --> O[Especificação dos objetos]
+    O --> M[Diagrama de objetos e mensagens]
+    M --> J[Código Java]
+</pre>
+  </div>
+  <div class="bar"></div>
+</section>
+
+<section class="s">
+  <div class="top"><div><div class="k">8 · Contexto 1</div><h2>Conta bancária simplificada</h2></div><div class="n">08</div></div>
+  <div class="case">
+    <p><b>Domínio:</b> uma instituição precisa representar contas bancárias. Cada conta tem número, titular, saldo e limite. O saldo não deve ser alterado diretamente: depósitos, saques e alterações de limite precisam passar por métodos públicos com validação.</p>
+  </div>
+  <div class="g2">
+    <div class="c"><h3>Especificação da classe</h3><ul><li><b>Classe:</b> <span class="mono">ContaBancaria</span></li><li><b>Atributos privados:</b> <span class="mono">numero</span>, <span class="mono">titular</span>, <span class="mono">saldo</span>, <span class="mono">limite</span></li><li><b>Construtores:</b> padrão, com número/titular, completo</li><li><b>Getters:</b> número, titular, saldo, limite</li><li><b>Setters:</b> titular e limite com validação</li><li><b>Métodos:</b> depósitos e saques sobrecarregados</li></ul></div>
+    <div class="c"><h3>Regras de negócio</h3><ul><li>Número da conta não deve ser vazio.</li><li>Titular não deve ser vazio.</li><li>Saldo inicial não pode ser negativo.</li><li>Limite não pode ser negativo.</li><li>Saque só ocorre se houver saldo + limite disponível.</li><li>Depósito só ocorre com valor positivo.</li></ul></div>
+  </div>
+  <div class="bar"></div>
+</section>
+
+<section class="s">
+  <div class="top"><div><div class="k">9 · UML de classe</div><h2>ContaBancaria com construtores e sobrecarga</h2></div><div class="n">09</div></div>
+  <div class="diagram">
+<pre class="mermaid">
+classDiagram
+    class ContaBancaria {
+        -String numero
+        -String titular
+        -double saldo
+        -double limite
+        +ContaBancaria()
+        +ContaBancaria(n, t)
+        +ContaBancaria(n, t, s, l)
+        +getNumero()
+        +getTitular()
+        +setTitular(t)
+        +getSaldo()
+        +getLimite()
+        +setLimite(l)
+        +depositar(v)
+        +depositar(v, d)
+        +sacar(v)
+        +sacar(v, d)
+        +exibirResumo()
+    }
+</pre>
+  </div>
+  <div class="call"><b>Leitura UML:</b> o sinal <span class="mono">-</span> indica membro privado; o sinal <span class="mono">+</span> indica membro público. Parâmetros abreviados: <span class="mono">n</span>=número, <span class="mono">t</span>=titular, <span class="mono">s</span>=saldo, <span class="mono">l</span>=limite, <span class="mono">v</span>=valor, <span class="mono">d</span>=descrição.</div>
+  <div class="bar"></div>
+</section>
+
+<section class="s">
+  <div class="top"><div><div class="k">10 · Objetos do contexto 1</div><h2>Especificação dos objetos</h2></div><div class="n">10</div></div>
+  <table class="compare">
+    <tr><th>Objeto</th><th>Criação</th><th>Estado inicial</th><th>Chamadas planejadas</th><th>Estado esperado</th></tr>
+    <tr><td><span class="mono">contaAna</span></td><td><span class="mono">new ContaBancaria("001", "Ana", 500, 200)</span></td><td>saldo 500, limite 200</td><td><span class="mono">depositar(150, "Pix")</span><br><span class="mono">sacar(100)</span><br><span class="mono">setLimite(300)</span></td><td>saldo 550, limite 300</td></tr>
+    <tr><td><span class="mono">contaBruno</span></td><td><span class="mono">new ContaBancaria("002", "Bruno")</span></td><td>saldo 0, limite 0</td><td><span class="mono">depositar(900)</span><br><span class="mono">sacar(1200, "Notebook")</span><br><span class="mono">setTitular("Bruno Lima")</span></td><td>saldo 900, titular atualizado</td></tr>
+  </table>
+  <div class="bar"></div>
+</section>
+
+<section class="s">
+  <div class="top"><div><div class="k">11 · Diagrama de objetos</div><h2>Mensagens alterando estado</h2></div><div class="n">11</div></div>
+  <div class="diagram sequence">
+<pre class="mermaid">
+sequenceDiagram
+    actor Programa
+    participant A as contaAna:ContaBancaria
+    participant B as contaBruno:ContaBancaria
+
+    Programa->>A: new ContaBancaria("001","Ana",500,200)
+    Note over A: numero=001&lt;br/&gt;titular=Ana&lt;br/&gt;saldo=500&lt;br/&gt;limite=200
+    Programa->>A: depositar(150, "Pix")
+    Note over A: saldo=650
+    Programa->>A: sacar(100)
+    Note over A: saldo=550
+    Programa->>A: setLimite(300)
+    Note over A: limite=300
+
+    Programa->>B: new ContaBancaria("002","Bruno")
+    Note over B: numero=002&lt;br/&gt;titular=Bruno&lt;br/&gt;saldo=0&lt;br/&gt;limite=0
+    Programa->>B: depositar(900)
+    Note over B: saldo=900
+    Programa->>B: sacar(1200, "Notebook")
+    Note over B: saque recusado&lt;br/&gt;saldo=900
+    Programa->>B: setTitular("Bruno Lima")
+    Note over B: titular=Bruno Lima
+</pre>
+  </div>
+  <div class="bar"></div>
+</section>
+
+<section class="s">
+  <div class="top"><div><div class="k">12 · Código resolvido</div><h2>ContaBancaria.java</h2></div><div class="n">12</div></div>
+  <div class="small"><div class="code-title">ContaBancaria.java</div><pre>public class ContaBancaria {
+    private String numero;
+    private String titular;
+    private double saldo;
+    private double limite;
+
+    public ContaBancaria() {
+        this("000", "Sem titular", 0, 0);
+    }
+
+    public ContaBancaria(String numero, String titular) {
+        this(numero, titular, 0, 0);
+    }
+
+    public ContaBancaria(String numero, String titular,
+                         double saldoInicial, double limite) {
+        setNumero(numero);
+        setTitular(titular);
+        setLimite(limite);
+        if (saldoInicial >= 0) {
+            this.saldo = saldoInicial;
+        }
+    }
+
+    private void setNumero(String numero) {
+        if (numero != null && !numero.isBlank()) {
+            this.numero = numero;
+        }
+    }
+
+    public String getNumero() { return numero; }
+    public String getTitular() { return titular; }
+    public double getSaldo() { return saldo; }
+    public double getLimite() { return limite; }
+
+    public void setTitular(String titular) {
+        if (titular != null && !titular.isBlank()) {
+            this.titular = titular;
+        }
+    }
+
+    public void setLimite(double limite) {
+        if (limite >= 0) {
+            this.limite = limite;
+        }
+    }
+
+    public void depositar(double valor) {
+        depositar(valor, "Depósito comum");
+    }
+
+    public void depositar(double valor, String descricao) {
+        if (valor > 0) {
+            saldo += valor;
+            System.out.println(descricao + ": +" + valor);
+        }
+    }
+
+    public boolean sacar(double valor) {
+        return sacar(valor, "Saque comum");
+    }
+
+    public boolean sacar(double valor, String descricao) {
+        if (valor > 0 && valor <= saldo + limite) {
+            saldo -= valor;
+            System.out.println(descricao + ": -" + valor);
+            return true;
+        }
+        System.out.println("Saque recusado: " + descricao);
+        return false;
+    }
+
+    public void exibirResumo() {
+        System.out.println(numero + " | " + titular +
+                " | saldo=" + saldo + " | limite=" + limite);
+    }
+}</pre></div>
+  <div class="bar"></div>
+</section>
+
+<section class="s">
+  <div class="top"><div><div class="k">13 · Código resolvido</div><h2>ProgramaConta.java</h2></div><div class="n">13</div></div>
+  <div class="g55">
+    <div><div class="code-title">ProgramaConta.java</div><pre>public class ProgramaConta {
+    public static void main(String[] args) {
+        ContaBancaria contaAna =
+                new ContaBancaria("001", "Ana", 500, 200);
+
+        ContaBancaria contaBruno =
+                new ContaBancaria("002", "Bruno");
+
+        contaAna.depositar(150, "Pix recebido");
+        contaAna.sacar(100);
+        contaAna.setLimite(300);
+
+        contaBruno.depositar(900);
+        contaBruno.sacar(1200, "Compra de notebook");
+        contaBruno.setTitular("Bruno Lima");
+
+        contaAna.exibirResumo();
+        contaBruno.exibirResumo();
+    }
+}</pre></div>
+    <div class="c">
+      <h3>O que observar</h3>
+      <ul>
+        <li>O objeto nasce pelo construtor escolhido.</li>
+        <li><span class="mono">depositar</span> tem duas versões.</li>
+        <li><span class="mono">sacar</span> tem duas versões.</li>
+        <li>O saldo não tem setter público: muda por depósito e saque.</li>
+        <li>O limite tem setter porque alterar limite é uma operação permitida.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="bar"></div>
+</section>
+
+<section class="s">
+  <div class="top"><div><div class="k">14 · Contexto 2</div><h2>Produto em estoque</h2></div><div class="n">14</div></div>
+  <div class="case">
+    <p><b>Domínio:</b> uma loja precisa controlar produtos. Cada produto possui código, nome, preço e quantidade em estoque. O preço e o estoque não podem receber valores inválidos, e as operações de venda/reposição devem refletir ações reais do negócio.</p>
+  </div>
+  <div class="g2">
+    <div class="c"><h3>Especificação da classe</h3><ul><li><b>Classe:</b> <span class="mono">Produto</span></li><li><b>Atributos privados:</b> <span class="mono">codigo</span>, <span class="mono">nome</span>, <span class="mono">preco</span>, <span class="mono">quantidadeEstoque</span></li><li><b>Construtores:</b> padrão, com código/nome, completo</li><li><b>Getters:</b> todos os atributos</li><li><b>Setters:</b> nome e preço com validação</li><li><b>Métodos:</b> vender e repor sobrecarregados</li></ul></div>
+    <div class="c"><h3>Regras de negócio</h3><ul><li>Código e nome não devem ser vazios.</li><li>Preço não pode ser negativo.</li><li>Estoque não pode ser negativo.</li><li>Venda exige quantidade positiva e estoque suficiente.</li><li>Reposição exige quantidade positiva.</li><li>Venda promocional usa desconto entre 0 e 50%.</li></ul></div>
+  </div>
+  <div class="bar"></div>
+</section>
+
+<section class="s">
+  <div class="top"><div><div class="k">15 · UML de classe</div><h2>Produto com sobrecarga de operações</h2></div><div class="n">15</div></div>
+  <div class="diagram">
+<pre class="mermaid">
+classDiagram
+    class Produto {
+        -String codigo
+        -String nome
+        -double preco
+        -int quantidadeEstoque
+        +Produto()
+        +Produto(c, n)
+        +Produto(c, n, p, q)
+        +getCodigo()
+        +getNome()
+        +setNome(n)
+        +getPreco()
+        +setPreco(p)
+        +getQtdEstoque()
+        +repor(q)
+        +repor(q, m)
+        +vender(q)
+        +vender(q, d)
+        +valorEstoque()
+        +exibirDados()
+    }
+</pre>
+  </div>
+  <div class="call"><b>Leitura UML:</b> parâmetros abreviados: <span class="mono">c</span>=código, <span class="mono">n</span>=nome, <span class="mono">p</span>=preço, <span class="mono">q</span>=quantidade, <span class="mono">m</span>=motivo, <span class="mono">d</span>=desconto. Os métodos <span class="mono">getQtdEstoque()</span> e <span class="mono">valorEstoque()</span> representam, no código Java, <span class="mono">getQuantidadeEstoque()</span> e <span class="mono">calcularValorEstoque()</span>.</div>
+  <div class="bar"></div>
+</section>
+
+<section class="s">
+  <div class="top"><div><div class="k">16 · Objetos do contexto 2</div><h2>Especificação dos objetos</h2></div><div class="n">16</div></div>
+  <table class="compare">
+    <tr><th>Objeto</th><th>Criação</th><th>Estado inicial</th><th>Chamadas planejadas</th><th>Estado esperado</th></tr>
+    <tr><td><span class="mono">mouse</span></td><td><span class="mono">new Produto("P001", "Mouse", 80, 12)</span></td><td>preço 80, estoque 12</td><td><span class="mono">vender(3)</span><br><span class="mono">repor(10, "Compra do fornecedor")</span><br><span class="mono">setPreco(75)</span></td><td>estoque 19, preço 75</td></tr>
+    <tr><td><span class="mono">teclado</span></td><td><span class="mono">new Produto("P002", "Teclado")</span></td><td>preço 0, estoque 0</td><td><span class="mono">setPreco(160)</span><br><span class="mono">repor(5)</span><br><span class="mono">vender(2, 0.10)</span></td><td>preço 160, estoque 3</td></tr>
+  </table>
+  <div class="bar"></div>
+</section>
+
+<section class="s">
+  <div class="top"><div><div class="k">17 · Diagrama de objetos</div><h2>Venda, reposição e alteração de preço</h2></div><div class="n">17</div></div>
+  <div class="diagram sequence">
+<pre class="mermaid">
+sequenceDiagram
+    actor Programa
+    participant M as mouse:Produto
+    participant T as teclado:Produto
+
+    Programa->>M: new Produto("P001","Mouse",80,12)
+    Note over M: codigo=P001&lt;br/&gt;nome=Mouse&lt;br/&gt;preco=80&lt;br/&gt;estoque=12
+    Programa->>M: vender(3)
+    Note over M: estoque=9
+    Programa->>M: repor(10, "Compra do fornecedor")
+    Note over M: estoque=19
+    Programa->>M: setPreco(75)
+    Note over M: preco=75
+
+    Programa->>T: new Produto("P002","Teclado")
+    Note over T: codigo=P002&lt;br/&gt;nome=Teclado&lt;br/&gt;preco=0&lt;br/&gt;estoque=0
+    Programa->>T: setPreco(160)
+    Note over T: preco=160
+    Programa->>T: repor(5)
+    Note over T: estoque=5
+    Programa->>T: vender(2, 0.10)
+    Note over T: venda com 10% de desconto&lt;br/&gt;estoque=3
+</pre>
+  </div>
+  <div class="bar"></div>
+</section>
+
+<section class="s">
+  <div class="top"><div><div class="k">18 · Código resolvido</div><h2>Produto.java</h2></div><div class="n">18</div></div>
+  <div class="small"><div class="code-title">Produto.java</div><pre>public class Produto {
+    private String codigo;
+    private String nome;
+    private double preco;
+    private int quantidadeEstoque;
+
+    public Produto() {
+        this("SEM-CODIGO", "Produto sem nome", 0, 0);
+    }
+
+    public Produto(String codigo, String nome) {
+        this(codigo, nome, 0, 0);
+    }
+
+    public Produto(String codigo, String nome,
+                   double preco, int quantidadeEstoque) {
+        setCodigo(codigo);
+        setNome(nome);
+        setPreco(preco);
+        if (quantidadeEstoque >= 0) {
+            this.quantidadeEstoque = quantidadeEstoque;
+        }
+    }
+
+    private void setCodigo(String codigo) {
+        if (codigo != null && !codigo.isBlank()) {
+            this.codigo = codigo;
+        }
+    }
+
+    public String getCodigo() { return codigo; }
+    public String getNome() { return nome; }
+    public double getPreco() { return preco; }
+    public int getQuantidadeEstoque() { return quantidadeEstoque; }
+
+    public void setNome(String nome) {
+        if (nome != null && !nome.isBlank()) {
+            this.nome = nome;
+        }
+    }
+
+    public void setPreco(double preco) {
+        if (preco >= 0) {
+            this.preco = preco;
+        }
+    }
+
+    public void repor(int quantidade) {
+        repor(quantidade, "Reposição comum");
+    }
+
+    public void repor(int quantidade, String motivo) {
+        if (quantidade > 0) {
+            quantidadeEstoque += quantidade;
+            System.out.println(motivo + ": +" + quantidade);
+        }
+    }
+
+    public boolean vender(int quantidade) {
+        return vender(quantidade, 0);
+    }
+
+    public boolean vender(int quantidade, double desconto) {
+        if (quantidade <= 0 || quantidade > quantidadeEstoque) {
+            System.out.println("Venda recusada para " + nome);
+            return false;
+        }
+
+        if (desconto < 0 || desconto > 0.50) {
+            System.out.println("Desconto inválido para " + nome);
+            return false;
+        }
+
+        quantidadeEstoque -= quantidade;
+        double total = quantidade * preco * (1 - desconto);
+        System.out.println("Venda de " + nome + ": R$ " + total);
+        return true;
+    }
+
+    public double calcularValorEstoque() {
+        return preco * quantidadeEstoque;
+    }
+
+    public void exibirDados() {
+        System.out.println(codigo + " | " + nome +
+                " | preço=" + preco +
+                " | estoque=" + quantidadeEstoque +
+                " | total=" + calcularValorEstoque());
+    }
+}</pre></div>
+  <div class="bar"></div>
+</section>
+
+<section class="s">
+  <div class="top"><div><div class="k">19 · Código resolvido</div><h2>ProgramaProduto.java</h2></div><div class="n">19</div></div>
+  <div class="g55">
+    <div><div class="code-title">ProgramaProduto.java</div><pre>public class ProgramaProduto {
+    public static void main(String[] args) {
+        Produto mouse =
+                new Produto("P001", "Mouse", 80, 12);
+
+        Produto teclado =
+                new Produto("P002", "Teclado");
+
+        mouse.vender(3);
+        mouse.repor(10, "Compra do fornecedor");
+        mouse.setPreco(75);
+
+        teclado.setPreco(160);
+        teclado.repor(5);
+        teclado.vender(2, 0.10);
+
+        mouse.exibirDados();
+        teclado.exibirDados();
+    }
+}</pre></div>
+    <div class="c">
+      <h3>O que observar</h3>
+      <ul>
+        <li>O construtor completo cria objeto pronto para uso.</li>
+        <li>O construtor com dois parâmetros cria objeto parcialmente configurado.</li>
+        <li><span class="mono">repor</span> tem versão simples e versão com motivo.</li>
+        <li><span class="mono">vender</span> tem versão comum e versão com desconto.</li>
+        <li>Estoque não tem setter público porque deve mudar por venda ou reposição.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="bar"></div>
+</section>
+
+<section class="s">
+  <div class="top"><div><div class="k">20 · Síntese técnica</div><h2>Como decidir o que usar</h2></div><div class="n">20</div></div>
+  <table class="compare">
+    <tr><th>Situação</th><th>Use</th><th>Motivo</th></tr>
+    <tr><td>O objeto precisa nascer válido.</td><td>Construtor com parâmetros.</td><td>Garante estado inicial coerente.</td></tr>
+    <tr><td>Há mais de uma forma natural de criar o objeto.</td><td>Sobrecarga de construtores.</td><td>Facilita uso sem duplicar inicialização.</td></tr>
+    <tr><td>Um atributo pode ser consultado por outras classes.</td><td>Getter.</td><td>Permite leitura sem expor o atributo diretamente.</td></tr>
+    <tr><td>Um atributo pode ser alterado com validação simples.</td><td>Setter.</td><td>Centraliza a regra de alteração.</td></tr>
+    <tr><td>Uma alteração representa ação de negócio.</td><td>Método de negócio.</td><td>Expressa intenção: vender, sacar, depositar, matricular.</td></tr>
+    <tr><td>A mesma ação tem variações legítimas.</td><td>Sobrecarga de métodos.</td><td>Mantém o mesmo nome e muda apenas os parâmetros.</td></tr>
+  </table>
+  <div class="bar"></div>
+</section>
+
+<section class="s">
+  <div class="top"><div><div class="k">21 · Erros comuns</div><h2>O que evitar</h2></div><div class="n">21</div></div>
+  <div class="g3">
+    <div class="c"><h3>Setter para tudo</h3><p>Nem todo atributo precisa de setter público. Saldo, estoque e média final costumam mudar por métodos de negócio.</p></div>
+    <div class="c"><h3>Construtor vazio sem sentido</h3><p>Se o objeto não consegue operar sem dados obrigatórios, prefira exigir esses dados no construtor.</p></div>
+    <div class="c"><h3>Sobrecarga confusa</h3><p>Evite versões que deixam ambíguo o significado dos parâmetros. Nomes claros e tipos adequados importam.</p></div>
+    <div class="c"><h3>Validação duplicada</h3><p>Se setter e construtor validam a mesma regra em lugares diferentes, o código tende a ficar inconsistente.</p></div>
+    <div class="c"><h3>Atributo público</h3><p>Expor atributo permite alteração sem regra. Isso quebra encapsulamento e dificulta manutenção.</p></div>
+    <div class="c"><h3>Retorno ignorado</h3><p>Métodos como <span class="mono">sacar</span> e <span class="mono">vender</span> retornam <span class="mono">boolean</span> para informar sucesso ou falha.</p></div>
+  </div>
+  <div class="bar"></div>
+</section>
+
+<section class="s">
+  <div class="top"><div><div class="k">22 · Atividade</div><h2>Prática orientada</h2></div><div class="n">22</div></div>
+  <div class="exercise c">
+    <h3>Entrega da aula</h3>
+    <p>Abra o PDF da atividade disponível nesta pasta e resolva os exercícios aplicando os critérios de hoje: atributos privados, construtores, getters/setters necessários, métodos de negócio e sobrecarga quando fizer sentido.</p>
+    <a class="filelink" href="Exercicios-POO-Java-Mod-II-25-09-2026.pdf" target="_blank">Abrir atividade PDF</a>
+  </div>
+  <div class="g2">
+    <div class="c"><h3>Checklist de qualidade</h3><ul><li>A classe nasce em estado válido?</li><li>Os atributos estão privados?</li><li>Há setters somente quando necessário?</li><li>As regras de validação estão centralizadas?</li><li>A sobrecarga deixa o uso mais claro?</li></ul></div>
+    <div class="c"><h3>Critério de leitura</h3><p>Ao olhar para o <span class="mono">main</span>, deve ser possível entender o comportamento dos objetos pelas mensagens enviadas: criar, vender, sacar, depositar, repor, alterar preço e exibir estado.</p></div>
+  </div>
+  <div class="bar"></div>
+</section>
+
+<section class="s hero">
+  <div class="k">Fechamento</div>
+  <h1>Um objeto bem modelado protege o próprio estado</h1>
+  <p class="lead">Construtores cuidam do nascimento, getters permitem leitura, setters validam alterações simples e métodos de negócio expressam ações reais. A sobrecarga organiza variações sem criar nomes artificiais.</p>
+  <div class="steps"><span>privado</span><span>validado</span><span>consistente</span><span>expressivo</span><span>testável</span></div>
+  <div class="call"><b>Próximo passo natural:</b> relacionamento entre objetos, composição e colaboração entre classes.</div>
+  <div class="bar"></div>
+</section>
+
+<div class="controls">
+  <button id="prev" title="Anterior">←</button><span id="ct"></span><button id="next" title="Próximo">→</button><button id="full" title="Tela cheia">⛶</button>
+</div>
+<script type="module">
+async function carregarMermaid() {
+  const urls = [
+    'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs',
+    'https://unpkg.com/mermaid@11/dist/mermaid.esm.min.mjs'
+  ];
+  for (const url of urls) {
+    try {
+      return (await import(url)).default;
+    } catch (erro) {
+      console.warn('Falha ao carregar Mermaid em', url, erro);
+    }
+  }
+  return null;
+}
+
+const mermaid = await carregarMermaid();
+if (mermaid) {
+  mermaid.initialize({
+    startOnLoad: false,
+    theme: 'base',
+    themeVariables: {
+      primaryColor: '#e9f5f3',
+      primaryTextColor: '#17272b',
+      primaryBorderColor: '#0f766e',
+      lineColor: '#617177',
+      fontFamily: 'Inter, Segoe UI, Arial'
+    }
+  });
+
+  document.querySelectorAll('.mermaid').forEach((el, indice) => {
+    el.dataset.source = el.textContent.trim();
+    el.dataset.mermaidId = `mermaid-diagrama-${indice}`;
+  });
+
+  window.renderMermaidIn = async function(container) {
+    const blocos = [...container.querySelectorAll('.mermaid:not([data-rendered="true"])')];
+    for (const bloco of blocos) {
+      try {
+        const codigo = bloco.dataset.source;
+        const id = bloco.dataset.mermaidId;
+        const {svg, bindFunctions} = await mermaid.render(id, codigo);
+        bloco.innerHTML = svg;
+        bindFunctions?.(bloco);
+        bloco.dataset.rendered = 'true';
+      } catch (erro) {
+        console.error('Erro ao renderizar Mermaid:', erro);
+        bloco.textContent = bloco.dataset.source;
+        bloco.classList.add('mermaid-fallback');
+      }
+    }
+  };
+
+  window.dispatchEvent(new Event('mermaid-ready'));
+} else {
+  document.querySelectorAll('.mermaid').forEach(el => el.classList.add('mermaid-fallback'));
+}
+</script>
+<script>
+const slides=[...document.querySelectorAll('.s')];let i=0;
+function show(x){i=Math.max(0,Math.min(slides.length-1,x));slides.forEach((s,k)=>s.classList.toggle('on',k===i));document.getElementById('ct').textContent=`${i+1} / ${slides.length}`;document.querySelectorAll('.bar').forEach(b=>b.style.width=((i+1)/slides.length*100)+'%');window.renderMermaidIn?.(slides[i]);window.scrollTo(0,0)}
+document.getElementById('prev').onclick=()=>show(i-1);document.getElementById('next').onclick=()=>show(i+1);document.getElementById('full').onclick=()=>document.documentElement.requestFullscreen?.();
+addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(i+1)}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(i-1)}if(e.key==='Home')show(0);if(e.key==='End')show(slides.length-1);if(e.key.toLowerCase()==='f')document.documentElement.requestFullscreen?.()});show(0);
+addEventListener('mermaid-ready',()=>window.renderMermaidIn?.(slides[i]));
+</script>
+</body>
+</html>

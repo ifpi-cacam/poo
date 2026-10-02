@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aula 04 - Exemplos Resolvidos de POO em Java</title>
+<style>
+:root{--bg:#f5f7f8;--paper:#fff;--ink:#17272b;--mut:#617177;--line:#dfe6e7;--t:#0f766e;--soft:#e9f5f3;--code:#0b1720;--codeInk:#e7f0f2;--gold:#a16207}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{padding:42px 7vw 28px;background:linear-gradient(#fff,#f8faf9);border-bottom:1px solid var(--line)}
+main{padding:28px 7vw 60px}h1,h2{font-family:Georgia,serif;line-height:1.08;margin:.15em 0}h1{font-size:clamp(34px,5vw,62px)}h2{font-size:clamp(28px,3.6vw,46px)}h3{margin:0 0 10px}.k{font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:var(--t);font-weight:800}.lead{font-size:20px;color:#34474d;max-width:980px}.exercise{background:var(--paper);border:1px solid var(--line);border-radius:14px;margin:0 0 28px;overflow:hidden;box-shadow:0 7px 22px #17333a0d}.exercise-head{padding:22px 26px;background:#fff;border-bottom:1px solid var(--line)}.body{padding:22px 26px}.grid{display:grid;grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr);gap:18px;align-items:start}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:18px}.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px}.problem{border-left:5px solid var(--t);background:var(--soft);padding:16px 18px;border-radius:0 10px 10px 0}.problem p{margin:.2em 0;color:#34474d;line-height:1.5}.diagram{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;overflow:auto}.diagram .mermaid{min-width:460px;text-align:center}.diagram svg{width:100%;height:auto;max-height:480px}pre{margin:0;background:var(--code);color:var(--codeInk);border-radius:12px;padding:16px 18px;overflow:auto;font:13px/1.45 Consolas,'Courier New',monospace;max-height:560px}.code-title{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#597077;margin:0 0 7px}.note{font-size:14px;color:#53656a;margin-top:10px}.pill{display:inline-block;padding:5px 9px;border-radius:99px;background:var(--soft);color:#115e59;font-size:11px;font-weight:800;text-transform:uppercase;margin-right:8px}.toplink{display:inline-block;margin-top:16px;color:#0f766e;font-weight:800;text-decoration:none}.toplink:hover{text-decoration:underline}a{color:#0f5f9a}@media(max-width:1000px){.grid,.grid2{grid-template-columns:1fr}.diagram .mermaid{min-width:560px}main,header{padding-left:5vw;padding-right:5vw}}@media print{.exercise{page-break-inside:avoid}pre{max-height:none}}
+</style>
+</head>
+<body>
+<header id="topo">
+  <div class="k">Programação Orientada a Objetos · Aula 04 · 25/09/2026</div>
+  <h1>Exemplos Resolvidos: Classes, Objetos e Encapsulamento</h1>
+  <p class="lead">Problema, UML e código Java dos exemplos trabalhados em aula.</p>
+  <a class="toplink" href="../index.html">Voltar ao índice</a>
+</header>
+<main>
+
+<section class="exercise" id="conta-energia">
+  <div class="exercise-head"><span class="pill">Exemplo 1</span><h2>Conta de Energia</h2></div>
+  <div class="body">
+    <div class="grid">
+      <div class="problem">
+        <h3>Problema</h3>
+        <p>Representar a conta mensal de energia de um cliente. O objeto deve armazenar número da instalação, cliente, consumo em kWh e valor do kWh.</p>
+        <p>O consumo só pode ser atualizado por método público e não aceita valor negativo.</p>
+      </div>
+      <div class="diagram">
+<pre class="mermaid">classDiagram
+    class ContaEnergia {
+        -int numeroInstalacao
+        -String nomeCliente
+        -double consumoKwh
+        -double valorKwh
+        +ContaEnergia(numero, cliente, consumo, valor)
+        +registrarConsumo(kwh)
+        +calcularValor()
+        +exibirResumo()
+    }</pre>
+      </div>
+    </div>
+    <div class="grid2">
+      <div><div class="code-title">ContaEnergia.java</div><pre>package contaenergia;
+
+public class ContaEnergia {
+
+    private int numeroInstalacao;
+    private String nomeCliente;
+    private double consumoKwh;
+    private double valorKwh;
+
+    public ContaEnergia(int numeroInstalacao,
+                        String nomeCliente,
+                        double consumoKwh,
+                        double valorKwh) {
+        this.numeroInstalacao = numeroInstalacao;
+        this.nomeCliente = nomeCliente;
+        this.consumoKwh = consumoKwh;
+        this.valorKwh = valorKwh;
+    }
+
+    public void registrarConsumo(double kwh) {
+        if (kwh &gt; 0) {
+            consumoKwh = kwh;
+        }
+    }
+
+    public double calcularValor() {
+        return valorKwh * consumoKwh;
+    }
+
+    public void exibirResumo() {
+        System.out.println("Resumo do consumo de energia");
+        System.out.println("Numero da Instalacao: " + numeroInstalacao);
+        System.out.println("Nome do Cliente: " + nomeCliente);
+        System.out.println("Valor do KwH: " + valorKwh);
+        System.out.println("Consumo de Kw: " + consumoKwh);
+        System.out.println("Valor total consumido: " + calcularValor());
+    }
+}</pre></div>
+      <div><div class="code-title">ProgramaContaEnergia.java</div><pre>package contaenergia;
+
+public class ProgramaContaEnergia {
+
+    public static void main(String[] args) {
+        ContaEnergia ce1 = new ContaEnergia(876, "Pedro Silva", 100, 4.5);
+        ContaEnergia ce2 = new ContaEnergia(997, "Maria Silva", 200, 3.5);
+
+        ce1.exibirResumo();
+        System.out.println("------------------------");
+        ce2.exibirResumo();
+
+        ce1.registrarConsumo(500);
+        ce2.registrarConsumo(140);
+
+        double consumo1 = ce1.calcularValor();
+        double consumo2 = ce2.calcularValor();
+
+        ce1.exibirResumo();
+        System.out.println("------------------------");
+        ce2.exibirResumo();
+
+        ce1.registrarConsumo(-100);
+        ce1.exibirResumo();
+    }
+}</pre></div>
+    </div>
+  </div>
+</section>
+
+<section class="exercise" id="produto-estoque">
+  <div class="exercise-head"><span class="pill">Exemplo 2</span><h2>Produto em Estoque</h2></div>
+  <div class="body">
+    <div class="grid">
+      <div class="problem">
+        <h3>Problema</h3>
+        <p>Representar um produto com código, nome, preço e quantidade em estoque.</p>
+        <p>O programa principal deve criar objetos, repor estoque, realizar uma venda válida, tentar uma venda maior que o estoque, alterar preço e exibir o estado final.</p>
+      </div>
+      <div class="diagram">
+<pre class="mermaid">classDiagram
+    class Produto {
+        ~int codigo
+        ~String nome
+        ~double preco
+        ~int quantidadeEstoque
+        +Produto(codigo, nome, preco, estoque)
+        +repor(quantidade)
+        +vender(quantidade)
+        +alterarPreco(novoPreco)
+        +exibirDados()
+    }</pre>
+      </div>
+    </div>
+    <div class="grid2">
+      <div><div class="code-title">Produto.java</div><pre>package produtoestoque;
+
+public class Produto {
+    int codigo;
+    String nome;
+    double preco;
+    int quantidadeEstoque;
+
+    public Produto(int codigo, String nome,
+                   double preco, int quantidadeEstoque) {
+        this.codigo = codigo;
+        this.nome = nome;
+        this.preco = preco;
+        this.quantidadeEstoque = quantidadeEstoque;
+    }
+
+    public void repor(int quantidade) {
+        if (quantidade &gt;= 0) {
+            quantidadeEstoque = quantidade;
+        }
+    }
+
+    public boolean vender(int quantidade) {
+        if (quantidade &lt; 0) {
+            return false;
+        }
+
+        if (quantidadeEstoque &gt;= quantidade) {
+            quantidadeEstoque = quantidadeEstoque - quantidade;
+            return true;
+        }
+        return false;
+    }
+
+    public void alterarPreco(double novoPreco) {
+        if (novoPreco &gt;= 0) {
+            preco = novoPreco;
+        }
+    }
+
+    public void exibirDados() {
+        System.out.println("Dados do Produto");
+        System.out.println("Codigo: " + codigo);
+        System.out.println("Nome: " + nome);
+        System.out.println("Preco: " + preco);
+        System.out.println("Quantidade: " + quantidadeEstoque);
+    }
+}</pre></div>
+      <div><div class="code-title">ProgramaProduto.java</div><pre>package produtoestoque;
+
+public class ProgramaProduto {
+
+    public static void main(String[] args) {
+        Produto mouse = new Produto(101, "Mouse USB", 45.90, 10);
+        Produto teclado = new Produto(102, "Teclado ABNT2", 89.90, 5);
+
+        mouse.repor(15);
+        teclado.repor(8);
+
+        boolean vendaMouse = mouse.vender(3);
+        boolean vendaTeclado = teclado.vender(20);
+
+        mouse.alterarPreco(42.50);
+        teclado.alterarPreco(84.90);
+
+        System.out.println("Venda valida do mouse realizada? " + vendaMouse);
+        System.out.println("Venda maior que o estoque do teclado realizada? " + vendaTeclado);
+        System.out.println();
+
+        mouse.exibirDados();
+        System.out.println();
+        teclado.exibirDados();
+    }
+}</pre></div>
+    </div>
+  </div>
+</section>
+
+<section class="exercise" id="conta-bancaria">
+  <div class="exercise-head"><span class="pill">Exemplo 3</span><h2>Conta Bancária</h2></div>
+  <div class="body">
+    <div class="grid">
+      <div class="problem">
+        <h3>Problema</h3>
+        <p>Representar uma conta bancária com titular e saldo privado.</p>
+        <p>O saldo só pode mudar por depósito ou saque. O programa principal cria duas contas e consulta o estado por métodos públicos.</p>
+      </div>
+      <div class="diagram">
+<pre class="mermaid">classDiagram
+    class Conta {
+        -String titular
+        -double saldo
+        +Conta(titular, saldo)
+        +depositar(valor)
+        +sacar(valor)
+        +getSaldo()
+        +getTitular()
+    }</pre>
+      </div>
+    </div>
+    <div class="grid2">
+      <div><div class="code-title">Conta.java</div><pre>package ifpi.contabancaria;
+
+public class Conta {
+    private String titular;
+    private double saldo;
+
+    public Conta(String t, double s) {
+        saldo = s;
+        titular = t;
+    }
+
+    public void depositar(double valor) {
+        if (valor &gt; 0) {
+            saldo += valor;
+        }
+    }
+
+    public boolean sacar(double valor) {
+        if (valor &gt; 0 &amp;&amp; valor &lt;= saldo) {
+            saldo -= valor;
+            return true;
+        }
+        return false;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public String getTitular() {
+        return titular;
+    }
+}</pre></div>
+      <div><div class="code-title">Programa.java</div><pre>package ifpi.contabancaria;
+
+public class Programa {
+    public static void main(String[] args) {
+        Conta c1 = new Conta("Ana", 100);
+        Conta c2 = new Conta("Paulo", 500);
+
+        System.out.println("Saldo da conta c1: " + c1.getSaldo());
+        System.out.println("Titular da conta c1: " + c1.getTitular());
+        System.out.println("Saldo da conta c2: " + c2.getSaldo());
+        System.out.println("Titular da conta c2: " + c2.getTitular());
+
+        c1.depositar(1000);
+        c1.sacar(250);
+
+        c2.depositar(400);
+
+        System.out.println(c1.getSaldo());
+        System.out.println(c2.getSaldo());
+    }
+}</pre></div>
+    </div>
+  </div>
+</section>
+
+<section class="exercise" id="empregado">
+  <div class="exercise-head"><span class="pill">Exemplo 4</span><h2>Empregado</h2></div>
+  <div class="body">
+    <div class="grid">
+      <div class="problem">
+        <h3>Problema</h3>
+        <p>Representar empregados com nome, idade e salário encapsulados.</p>
+        <p>O programa principal cria dois empregados e consulta seus dados por métodos públicos.</p>
+      </div>
+      <div class="diagram">
+<pre class="mermaid">classDiagram
+    class Empregado {
+        -String nome
+        -int idade
+        -double salario
+        +Empregado(nome, idade, salario)
+        +mostraNome()
+        +mostraIdade()
+        +mostraSalario()
+        +aumentarSalario(aumento)
+        +reduzSalario(reducao)
+    }</pre>
+      </div>
+    </div>
+    <div class="grid2">
+      <div><div class="code-title">Empregado.java</div><pre>package ifpi.empregado;
+
+public class Empregado {
+
+    private String nome;
+    private int idade;
+    private double salario;
+
+    public Empregado(String nome, int idade, double salario) {
+        this.nome = nome;
+        this.idade = idade;
+        this.salario = salario;
+    }
+
+    public String mostraNome() {
+        return nome;
+    }
+
+    public int mostraIdade() {
+        return idade;
+    }
+
+    public double mostraSalario() {
+        return salario;
+    }
+
+    public void aumentarSalario(double aumento) {
+        // implementacao pendente em aula
+    }
+
+    public void reduzSalario(double reducao) {
+        // implementacao pendente em aula
+    }
+}</pre></div>
+      <div><div class="code-title">EmpregadoMain.java</div><pre>package ifpi.empregado;
+
+public class EmpregadoMain {
+
+    public static void main(String args[]) {
+        Empregado emp1 = new Empregado("Maria", 32, 2500);
+        Empregado emp2 = new Empregado("Pedro", 39, 1900);
+
+        System.out.println("Nome do Empregado 1: " + emp1.mostraNome());
+        System.out.println("Idade do Empregado 1: " + emp1.mostraIdade());
+        System.out.println("Salario do Empregado 1: " + emp1.mostraSalario());
+
+        System.out.println("Nome do Empregado 2: " + emp2.mostraNome());
+        System.out.println("Idade do Empregado 2: " + emp2.mostraIdade());
+        System.out.println("Salario do Empregado 2: " + emp2.mostraSalario());
+    }
+}</pre></div>
+    </div>
+  </div>
+</section>
+
+<a class="toplink" href="#topo">Voltar ao topo</a>
+</main>
+<script type="module">
+async function loadMermaid(){
+  const urls=['https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs','https://unpkg.com/mermaid@11/dist/mermaid.esm.min.mjs'];
+  for(const url of urls){try{return (await import(url)).default}catch(e){console.warn('Mermaid indisponivel:',url,e)}}
+  return null;
+}
+const mermaid=await loadMermaid();
+if(mermaid){
+  mermaid.initialize({startOnLoad:false,theme:'base',themeVariables:{primaryColor:'#e9f5f3',primaryTextColor:'#17272b',primaryBorderColor:'#0f766e',lineColor:'#617177',fontFamily:'Inter, Segoe UI, Arial'}});
+  await mermaid.run({querySelector:'.mermaid'});
+}
+</script>
+</body>
+</html>
