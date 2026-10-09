@@ -1,222 +1,55 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entrega de Trabalhos - POO</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prazo Expirado - Entrega de POO</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #17202a;
+      background: #f5f7fb;
+    }
+    main {
+      width: min(680px, 100%);
+      padding: 34px;
+      border: 1px solid #d7e0ea;
+      border-radius: 8px;
+      background: #ffffff;
+      box-shadow: 0 18px 45px rgba(25, 42, 70, 0.12);
+      text-align: center;
+    }
+    p.tag {
+      margin: 0 0 10px;
+      color: #164ec0;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 0 0 14px;
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      line-height: 1.05;
+    }
+    p {
+      margin: 0;
+      color: #5d6b7a;
+      font-size: 1.05rem;
+      line-height: 1.55;
+    }
+  </style>
 </head>
-
 <body>
-    <main class="page-shell">
-        <section class="hero">
-            <div class="hero-text">
-                <p class="eyebrow">Programacao Orientada a Objetos</p>
-                <h1>Entrega da lista pratica em Java</h1>
-                <p>
-                    Resolva as 5 questoes no IntelliJ IDEA, compacte todo o projeto em um unico
-                    arquivo ZIP e envie somente uma vez pelo formulario abaixo.
-                </p>
-            </div>
-
-            <div class="hero-panel" aria-label="Resumo da entrega">
-                <div class="summary-item">
-                    <span class="panel-label">Formato aceito</span>
-                    <strong>.zip</strong>
-                    <span>1 arquivo por aluno</span>
-                </div>
-
-                <div class="summary-item">
-                    <span class="panel-label">Valor</span>
-                    <strong class="score">1,5 pt</strong>
-                    <span>na 1a avaliacao</span>
-                </div>
-            </div>
-        </section>
-
-        <section class="content-grid">
-            <div class="submission-panel">
-                <form id="trabalhoForm">
-                    <div class="section-heading">
-                        <p class="eyebrow">Identificacao</p>
-                        <h2>Dados do aluno</h2>
-                    </div>
-
-                    <label>
-                        Aluno
-                        <select id="alunoSelect" name="aluno" required>
-                            <option value="">Selecione sua matricula e nome...</option>
-                            <option value="2026127TADS0001|Alan Cardoso Ferreira">2026127TADS0001 - Alan Cardoso Ferreira</option>
-                            <option value="2026127TADS0002|Ana Clara Santos Cruz">2026127TADS0002 - Ana Clara Santos Cruz</option>
-                            <option value="2026127TADS0028|Andre Luis de Carvalho Filho">2026127TADS0028 - Andre Luis de Carvalho Filho</option>
-                            <option value="2026127TADS0037|Annaysla Teixeira Estevam Avelino">2026127TADS0037 - Annaysla Teixeira Estevam Avelino</option>
-                            <option value="2026127TADS0003|Antonio Mateus de Carvalho">2026127TADS0003 - Antonio Mateus de Carvalho</option>
-                            <option value="2026127TADS0031|Camila Rafaelly Soares Araujo">2026127TADS0031 - Camila Rafaelly Soares Araujo</option>
-                            <option value="2026127TADS0036|Carlos Daniel da Silva Rodrigues">2026127TADS0036 - Carlos Daniel da Silva Rodrigues</option>
-                            <option value="2026127TADS0004|Carlos Henrique de Araujo Sousa">2026127TADS0004 - Carlos Henrique de Araujo Sousa</option>
-                            <option value="2026127TADS0005|Carlos Jefferson Ferreira Fideles">2026127TADS0005 - Carlos Jefferson Ferreira Fideles</option>
-                            <option value="2026127TADS0038|Daniel da Silva Lima">2026127TADS0038 - Daniel da Silva Lima</option>
-                            <option value="2026127TADS0030|Daniel Pereira Leite">2026127TADS0030 - Daniel Pereira Leite</option>
-                            <option value="2026127TADS0007|Dyego Melo Nunes da Silva">2026127TADS0007 - Dyego Melo Nunes da Silva</option>
-                            <option value="2026127TADS0006|Elen Kelen Mesquita Ribeiro">2026127TADS0006 - Elen Kelen Mesquita Ribeiro</option>
-                            <option value="2026127TADS0029|Expedito Bruno da Silva Vieira">2026127TADS0029 - Expedito Bruno da Silva Vieira</option>
-                            <option value="2026127TADS0008|Fabricio Apolonio Ribeiro Junior">2026127TADS0008 - Fabricio Apolonio Ribeiro Junior</option>
-                            <option value="2026127TADS0009|Francisca Clarisse Araujo Borges">2026127TADS0009 - Francisca Clarisse Araujo Borges</option>
-                            <option value="2026127TADS0010|Francisco Antonio Saraiva Barros">2026127TADS0010 - Francisco Antonio Saraiva Barros</option>
-                            <option value="2026127TADS0011|Francisco Lima Evangelista">2026127TADS0011 - Francisco Lima Evangelista</option>
-                            <option value="2026127TADS0032|Francisco Welves do Vale Cruz">2026127TADS0032 - Francisco Welves do Vale Cruz</option>
-                            <option value="2026127TADS0012|Gabriel Sousa Ferreira">2026127TADS0012 - Gabriel Sousa Ferreira</option>
-                            <option value="2026127TADS0013|Jesse Pereira de Sousa">2026127TADS0013 - Jesse Pereira de Sousa</option>
-                            <option value="2026127TADS0014|Joao Rafael Neuton de Araujo">2026127TADS0014 - Joao Rafael Neuton de Araujo</option>
-                            <option value="2026127TADS0015|Jose Alves da Silva Junior">2026127TADS0015 - Jose Alves da Silva Junior</option>
-                            <option value="2026127TADS0016|Jose Leonardo Mendes e Silva">2026127TADS0016 - Jose Leonardo Mendes e Silva</option>
-                            <option value="2026127TADS0017|Kaua Felipo Freitas Silva">2026127TADS0017 - Kaua Felipo Freitas Silva</option>
-                            <option value="2026127TADS0018|Luan Marques de Carvalho">2026127TADS0018 - Luan Marques de Carvalho</option>
-                            <option value="2026127TADS0019|Luiz Filipe Lopes de Sousa">2026127TADS0019 - Luiz Filipe Lopes de Sousa</option>
-                            <option value="2026127TADS0033|Lusia Hidyoghania Sousa Santana">2026127TADS0033 - Lusia Hidyoghania Sousa Santana</option>
-                            <option value="2026127TADS0020|Marcos Idalino de Sousa Filho">2026127TADS0020 - Marcos Idalino de Sousa Filho</option>
-                            <option value="2026127TADS0034|Marcos Vinicius da Silva Lima">2026127TADS0034 - Marcos Vinicius da Silva Lima</option>
-                            <option value="2026127TADS0021|Marcus Vinicius Carvalho de Oliveira Araujo">2026127TADS0021 - Marcus Vinicius Carvalho de Oliveira Araujo</option>
-                            <option value="2026127TADS0027|Mateus Costa dos Santos">2026127TADS0027 - Mateus Costa dos Santos</option>
-                            <option value="2026127TADS0022|Pamela Chrys Martins de Oliveira Coelho">2026127TADS0022 - Pamela Chrys Martins de Oliveira Coelho</option>
-                            <option value="2026127TADS0023|Pedro Vitor Silva Sousa">2026127TADS0023 - Pedro Vitor Silva Sousa</option>
-                            <option value="2026127TADS0024|Ray Cruz Oliveira Marques">2026127TADS0024 - Ray Cruz Oliveira Marques</option>
-                            <option value="2026127TADS0035|Ray Rodrigues Rocha">2026127TADS0035 - Ray Rodrigues Rocha</option>
-                            <option value="2026127TADS0025|Rian Wallisson Alves Rodrigues">2026127TADS0025 - Rian Wallisson Alves Rodrigues</option>
-                            <option value="2026127TADS0026|Ronald Soares Campelo">2026127TADS0026 - Ronald Soares Campelo</option>
-                        </select>
-                    </label>
-
-                    <label>
-                        Projeto compactado
-                        <input type="file" id="arquivoZip" name="arquivoZip" accept=".zip,application/zip" required>
-                    </label>
-
-                    <div class="notice">
-                        <strong>Antes de enviar:</strong>
-                        confira se o ZIP contem o projeto criado no IntelliJ, com cada questao
-                        organizada em um pacote Java separado e com as classes `main` usadas nos testes.
-                    </div>
-
-                    <button type="submit" id="submitBtn">Enviar trabalho</button>
-                    <p class="status" id="statusMessage" role="status" aria-live="polite"></p>
-                </form>
-            </div>
-
-            <aside class="instructions-panel">
-                <div class="section-heading">
-                    <p class="eyebrow">Orientacoes</p>
-                    <h2>Como preparar a entrega</h2>
-                </div>
-
-                <ol>
-                    <li>Crie ou abra o projeto Java no IntelliJ IDEA.</li>
-                    <li>Resolva as 5 questoes usando classes, objetos, atributos, metodos e encapsulamento.</li>
-                    <li>Organize cada questao em um pacote Java separado dentro do projeto.</li>
-                    <li>Inclua classes com `main` em cada pacote para testar os objetos e demonstrar os resultados.</li>
-                    <li>Compacte a pasta do projeto em formato ZIP.</li>
-                    <li>Envie apenas um arquivo ZIP neste formulario.</li>
-                </ol>
-            </aside>
-        </section>
-
-        <section class="questions">
-            <div class="section-heading">
-                <p class="eyebrow">Lista pratica</p>
-                <h2>Questoes</h2>
-            </div>
-
-            <article class="question-card">
-                <h3>Questao 1 - Cadastro simples de aluno</h3>
-                <p>
-                    Crie uma classe `Aluno` com os atributos publicos `matricula`, `nome`, `curso`
-                    e `notaFinal`. Implemente `exibirDados()` e `verificarAprovacao()`, considerando
-                    aprovado quem tiver nota maior ou igual a 7.0.
-                </p>
-                <p>
-                    No `main`, crie dois objetos `Aluno`, atribua valores diferentes e chame os
-                    metodos de cada objeto.
-                </p>
-                <p class="files">Arquivos sugeridos: Aluno.java e ProgramaAluno.java</p>
-            </article>
-
-            <article class="question-card">
-                <h3>Questao 2 - Conta de energia eletrica</h3>
-                <p>
-                    Crie uma classe `ContaEnergia` com atributos privados `numeroInstalacao`,
-                    `nomeCliente`, `consumoKwh` e `valorKwh`.
-                </p>
-                <p>
-                    Implemente `definirCliente`, `definirValorKwh`, `registrarConsumo`,
-                    `calcularValor` e `exibirResumo`. O consumo nao pode ser negativo e o valor
-                    do kWh deve ser maior que zero.
-                </p>
-                <p>
-                    No `main`, crie duas contas, teste consumos diferentes e tente registrar um
-                    consumo negativo.
-                </p>
-                <p class="files">Arquivos sugeridos: ContaEnergia.java e ProgramaContaEnergia.java</p>
-            </article>
-
-            <article class="question-card">
-                <h3>Questao 3 - Produto em estoque</h3>
-                <p>
-                    Crie uma classe `Produto` com atributos privados `codigo`, `nome`, `preco` e
-                    `quantidadeEstoque`.
-                </p>
-                <p>
-                    Implemente `cadastrar`, `repor`, `vender`, `alterarPreco` e `exibirDados`.
-                    A venda deve retornar `true` quando ocorrer e `false` quando nao for possivel.
-                </p>
-                <p>
-                    Teste reposicoes validas, uma venda valida, uma venda maior que o estoque,
-                    alteracao de preco negativa e o estado final dos objetos.
-                </p>
-                <p class="files">Arquivos sugeridos: Produto.java e ProgramaProduto.java</p>
-            </article>
-
-            <article class="question-card">
-                <h3>Questao 4 - Controle de veiculo em uma viagem</h3>
-                <p>
-                    Crie uma classe `Veiculo` com atributos privados `placa`, `modelo`,
-                    `velocidadeAtual` e `quilometragem`.
-                </p>
-                <p>
-                    Implemente `cadastrar`, `acelerar`, `frear`, `registrarViagem` e
-                    `exibirPainel`. A velocidade nunca deve ficar abaixo de zero.
-                </p>
-                <p>
-                    No `main`, crie dois veiculos, altere cada um com valores diferentes e mostre
-                    que seus estados sao independentes.
-                </p>
-                <p class="files">Arquivos sugeridos: Veiculo.java e ProgramaVeiculo.java</p>
-            </article>
-
-            <article class="question-card">
-                <h3>Questao 5 - Cliente e conta bancaria</h3>
-                <p>
-                    Crie as classes `Cliente` e `ContaBancaria`. A conta deve guardar uma referencia
-                    para um objeto `Cliente`, representando o titular.
-                </p>
-                <p>
-                    `Cliente` deve ter atributos privados `nome`, `cpf` e `telefone`, alem de
-                    `cadastrar`, `exibirDados` e `getNome`. `ContaBancaria` deve ter atributos
-                    privados `numero`, `titular` e `saldo`, alem de `abrirConta`, `depositar`,
-                    `sacar`, `renderConta` e `exibirExtrato`.
-                </p>
-                <p>
-                    Teste duas contas, depositos, saques, saque maior que o saldo, rendimento e
-                    extratos finais. O saldo nao pode ser publico nem alterado diretamente no `main`.
-                </p>
-                <p class="files">Arquivos sugeridos: Cliente.java, ContaBancaria.java e ProgramaBanco.java</p>
-            </article>
-        </section>
-    </main>
-
-    <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
-    <script src="script.js"></script>
+  <main>
+    <p class="tag">Programacao Orientada a Objetos</p>
+    <h1>Prazo expirado para envio de respostas</h1>
+    <p>O formulario de entrega do trabalho de POO foi encerrado.</p>
+  </main>
 </body>
-
 </html>
