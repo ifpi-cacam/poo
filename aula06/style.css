@@ -1,0 +1,359 @@
+:root {
+    --bg: #f5f7fb;
+    --surface: #ffffff;
+    --surface-muted: #eef3f8;
+    --text: #17202a;
+    --muted: #5d6b7a;
+    --line: #d7e0ea;
+    --primary: #2166f3;
+    --primary-dark: #164ec0;
+    --accent: #13a783;
+    --warning: #fff7df;
+    --warning-line: #efd58b;
+    --shadow: 0 18px 45px rgba(25, 42, 70, 0.12);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--text);
+    background:
+        linear-gradient(135deg, rgba(33, 102, 243, 0.08), transparent 34%),
+        linear-gradient(315deg, rgba(19, 167, 131, 0.10), transparent 30%),
+        var(--bg);
+}
+
+.page-shell {
+    width: min(1120px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 32px 0 44px;
+}
+
+.hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    gap: 24px;
+    align-items: stretch;
+    margin-bottom: 24px;
+    padding: 34px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface);
+    box-shadow: var(--shadow);
+}
+
+.hero-text h1,
+.section-heading h2 {
+    margin: 0;
+    line-height: 1.1;
+}
+
+.hero-text h1 {
+    max-width: 720px;
+    font-size: 2.45rem;
+}
+
+.hero-text p:last-child {
+    max-width: 760px;
+    margin: 16px 0 0;
+    color: var(--muted);
+    font-size: 1.05rem;
+    line-height: 1.55;
+}
+
+.eyebrow {
+    margin: 0 0 8px;
+    color: var(--primary-dark);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+
+.hero-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    align-items: stretch;
+    min-height: 132px;
+    padding: 12px;
+    border-radius: 8px;
+    background: var(--surface-muted);
+    border: 1px solid var(--line);
+}
+
+.summary-item {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: #ffffff;
+}
+
+.summary-item strong {
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--accent);
+}
+
+.summary-item .score {
+    font-size: 1.7rem;
+    color: var(--primary-dark);
+}
+
+.summary-item span {
+    color: var(--muted);
+}
+
+.panel-label {
+    font-weight: 700;
+    color: var(--text) !important;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+    gap: 24px;
+    align-items: start;
+}
+
+.submission-panel,
+.instructions-panel,
+.questions {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface);
+    box-shadow: var(--shadow);
+}
+
+.submission-panel,
+.instructions-panel {
+    padding: 26px;
+}
+
+.section-heading {
+    margin-bottom: 20px;
+}
+
+.section-heading h2 {
+    font-size: 1.45rem;
+}
+
+.field-grid {
+    display: grid;
+    grid-template-columns: minmax(180px, 0.7fr) minmax(220px, 1.3fr);
+    gap: 16px;
+}
+
+label {
+    display: block;
+    margin-bottom: 18px;
+    font-weight: 700;
+}
+
+input,
+select {
+    width: 100%;
+    min-height: 48px;
+    margin-top: 8px;
+    padding: 12px 14px;
+    border: 1px solid #c6d3e0;
+    border-radius: 6px;
+    background: #fbfdff;
+    color: var(--text);
+    font: inherit;
+}
+
+select {
+    cursor: pointer;
+}
+
+input:focus,
+select:focus {
+    outline: 3px solid rgba(33, 102, 243, 0.18);
+    border-color: var(--primary);
+}
+
+input[type="file"] {
+    padding: 10px;
+}
+
+.ts-wrapper {
+    margin-top: 8px;
+}
+
+.ts-control {
+    min-height: 48px !important;
+    padding: 10px 14px !important;
+    border: 1px solid #c6d3e0 !important;
+    border-radius: 6px !important;
+    background: #fbfdff !important;
+    box-shadow: none !important;
+    font: inherit !important;
+}
+
+.ts-control input {
+    font: inherit !important;
+    color: var(--text) !important;
+}
+
+.ts-control .item {
+    color: var(--text) !important;
+}
+
+.ts-dropdown {
+    border: 1px solid #c6d3e0 !important;
+    border-radius: 6px !important;
+    background: #ffffff !important;
+    box-shadow: var(--shadow) !important;
+}
+
+.ts-dropdown .option {
+    padding: 10px 12px !important;
+}
+
+.ts-dropdown .active {
+    background: var(--surface-muted) !important;
+    color: var(--text) !important;
+}
+
+.notice {
+    margin: 4px 0 18px;
+    padding: 14px;
+    border: 1px solid var(--warning-line);
+    border-radius: 6px;
+    background: var(--warning);
+    color: #5f4a10;
+    line-height: 1.45;
+}
+
+button {
+    width: 100%;
+    min-height: 52px;
+    border: 0;
+    border-radius: 6px;
+    background: var(--primary);
+    color: #ffffff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+button:hover {
+    background: var(--primary-dark);
+}
+
+button:disabled {
+    cursor: wait;
+    opacity: 0.72;
+}
+
+.status {
+    min-height: 24px;
+    margin: 14px 0 0;
+    color: var(--muted);
+    font-weight: 700;
+}
+
+.status.success {
+    color: #0c7b5e;
+}
+
+.status.error {
+    color: #b3261e;
+}
+
+.instructions-panel ol {
+    margin: 0;
+    padding-left: 22px;
+    color: var(--muted);
+    line-height: 1.55;
+}
+
+.instructions-panel li {
+    margin-bottom: 10px;
+}
+
+.questions {
+    margin-top: 24px;
+    padding: 26px;
+}
+
+.questions .section-heading {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 18px;
+}
+
+.question-card {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.question-card:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+}
+
+.question-card h3 {
+    margin: 0 0 10px;
+    font-size: 1.18rem;
+}
+
+.question-card p {
+    margin: 0 0 10px;
+    color: var(--muted);
+    line-height: 1.55;
+}
+
+.question-card .files {
+    margin-bottom: 0;
+    color: var(--primary-dark);
+    font-weight: 700;
+}
+
+@media (max-width: 820px) {
+    .hero,
+    .content-grid,
+    .field-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-panel {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .hero {
+        padding: 24px;
+    }
+
+    .hero-text h1 {
+        font-size: 1.9rem;
+    }
+}
+
+@media (max-width: 520px) {
+    .page-shell {
+        width: min(100% - 20px, 1120px);
+        padding-top: 10px;
+    }
+
+    .hero,
+    .submission-panel,
+    .instructions-panel,
+    .questions {
+        padding: 18px;
+    }
+
+    .hero-panel {
+        grid-template-columns: 1fr;
+    }
+}
