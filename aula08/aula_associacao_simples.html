@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>POO - Associação Simples</title>
+<style>
+:root{--bg:#f5f7f8;--ink:#17272b;--mut:#617177;--line:#dfe6e7;--t:#0f766e;--soft:#e9f5f3;--code:#0b1720;--codeInk:#e7f0f2}*{box-sizing:border-box}html,body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink)}body{overflow:hidden}.s{position:absolute;inset:0;display:none;overflow:auto;padding:5vh 7vw 86px;background:radial-gradient(circle at 94% 5%,#e8f5f2,transparent 25%),linear-gradient(#fff,#f8faf9)}.s.on{display:flex;flex-direction:column}.hero{justify-content:center}h1,h2{font-family:Georgia,serif;line-height:1.05;margin:.15em 0}h1{font-size:clamp(42px,6vw,78px);max-width:1180px}h2{font-size:clamp(32px,4.2vw,56px)}h3{margin:5px 0 9px}p{font-size:clamp(16px,1.42vw,21px);line-height:1.55;color:#34474d}.lead{font-size:clamp(20px,2vw,29px);max-width:1120px}.k{font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:var(--t);font-weight:800}.top{display:flex;justify-content:space-between;gap:20px}.n{font-size:13px;font-weight:800;color:#9aa6aa}.g2,.g3{display:grid;gap:18px;margin-top:22px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.c{background:#fff;border:1px solid var(--line);border-radius:17px;padding:21px;box-shadow:0 7px 22px #17333a0d}.c p,.c li{font-size:16px;line-height:1.45}.c ul,.c ol{padding-left:22px}.c li{margin:7px 0}.tag{display:inline-block;padding:5px 9px;border-radius:99px;background:var(--soft);color:#115e59;font-size:11px;font-weight:800;text-transform:uppercase}.call{margin-top:20px;border-left:5px solid var(--t);background:var(--soft);padding:16px 20px;border-radius:0 12px 12px 0}.warn{border-left-color:#a16207;background:#fff8e9}.case{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px 24px;margin-top:14px}.steps{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:24px 0}.steps span{background:#fff;border:1px solid var(--line);padding:10px 14px;border-radius:11px;font-weight:700}.diagram{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;margin-top:18px;overflow:auto}.diagram .mermaid{background:#fff!important;margin:0 auto;text-align:center;min-width:560px}.diagram svg{width:100%;height:auto;max-height:58vh}.cap{font-size:12px;color:#6f7f84;margin:8px 4px 0}.mermaid-fallback{border:1px dashed #c9d6d8;background:#f8fbfb;color:#274247}pre{margin:0;background:var(--code);color:var(--codeInk);border-radius:15px;padding:18px 20px;overflow:auto;font:14px/1.5 Consolas,'Courier New',monospace;box-shadow:inset 0 0 0 1px #ffffff12;max-height:64vh}.small pre{font-size:13px;line-height:1.42;max-height:64vh}.code-title{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#597077;margin:0 0 7px}.mono{font-family:Consolas,'Courier New',monospace}.bar{position:absolute;bottom:0;left:0;height:5px;background:var(--t)}.controls{position:fixed;z-index:10;right:20px;bottom:16px;background:#ffffffed;border:1px solid var(--line);border-radius:99px;padding:7px;box-shadow:0 10px 30px #17333a20}.controls button{border:0;background:#edf3f2;width:36px;height:36px;border-radius:50%;font-size:17px;cursor:pointer}.controls span{display:inline-block;width:72px;text-align:center;font-size:12px;font-weight:800;color:#65757a}.pill{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 11px;font-size:13px;font-weight:700;color:#53656a}.badge{width:9px;height:9px;border-radius:50%;background:var(--t)}@media(max-width:900px){body{overflow:auto}.s{position:relative;min-height:100vh}.g2,.g3{grid-template-columns:1fr}.controls{right:10px;bottom:10px}.diagram .mermaid{min-width:520px}pre{max-height:none}}@media print{body{overflow:visible}.controls{display:none}.s{display:flex!important;position:relative;min-height:100vh;page-break-after:always}}
+</style></head><body>
+<section class="s hero on"><div class="k">Programação Orientada a Objetos · Java</div><h1>Associação simples entre classes</h1><p class="lead">Um objeto pode guardar uma referência para outro objeto. Vamos representar essa relação em Java, passar a referência pelo construtor e acompanhar a criação dos objetos no código.</p><div class="steps"><span>Classe</span><span>Referência</span><span>Construtor</span><span>Objeto</span><span>UML</span></div><div class="pill"><span class="badge"></span>Aula · 14/10/2026</div><div class="bar"></div></section>
+<section class="s"><div class="top"><div><div class="k">1 · Conceito</div><h2>Uma classe pode conhecer outra</h2></div><div class="n">01</div></div><div class="g2"><div class="c"><span class="tag">Definição</span><p>Existe uma <b>associação simples</b> quando uma classe possui um campo cujo tipo é outra classe. Esse campo guarda uma <b>referência</b> para um objeto associado.</p><p>A classe que contém o campo pode usar essa referência para consultar dados e chamar métodos do outro objeto.</p></div><div class="c"><h3>Exemplo em palavras</h3><p>Um <b>Pedido</b> tem um <b>Cliente</b>. A classe <span class="mono">Pedido</span> declara um atributo <span class="mono">cliente</span> do tipo <span class="mono">Cliente</span>.</p><pre>public class Pedido {
+    private Cliente cliente;
+}</pre></div></div><div class="call"><b>Ideia principal:</b> o campo não guarda uma cópia da classe; guarda uma referência para uma instância.</div><div class="bar"></div></section>
+<section class="s"><div class="top"><div><div class="k">2 · Passando a referência</div><h2>O objeto associado chega pelo construtor</h2></div><div class="n">02</div></div><div class="g2"><div><p class="lead">Crie primeiro o objeto associado. Depois passe sua referência ao construtor do objeto que terá o campo.</p><div class="call"><b>Ordem:</b> instanciar → passar a referência → guardar no atributo com <span class="mono">this</span>.</div></div><div><div class="code-title">Pedido.java</div><pre>public class Pedido {
+    private Cliente cliente;
+
+    public Pedido(Cliente cliente) {
+        this.cliente = cliente;
+    }
+}</pre></div></div><div class="diagram"><pre class="mermaid">flowchart LR
+    A["new Cliente(...) "] -->|referência| B["new Pedido(cliente)"]
+    B --> C["pedido.cliente aponta para a instância Cliente"]</pre></div><div class="bar"></div></section>
+<section class="s"><div class="top"><div><div class="k">3 · Exemplo 1 · Código</div><h2>Pedido associado a Cliente</h2></div><div class="n">03</div></div><div class="case"><p><b>Problema:</b> um pedido registra seu número e o cliente responsável. O pedido mantém a referência ao cliente recebido na criação.</p></div><div class="g2"><div><div class="code-title">Cliente.java</div><pre>public class Cliente {
+    private String nome;
+    private String email;
+
+    public Cliente(String nome, String email) {
+        this.nome = nome;
+        this.email = email;
+    }
+
+    public String getNome() { return nome; }
+    public String getEmail() { return email; }
+}</pre></div><div><div class="code-title">Pedido.java</div><pre>public class Pedido {
+    private int numero;
+    private Cliente cliente;
+
+    public Pedido(int numero, Cliente cliente) {
+        this.numero = numero;
+        this.cliente = cliente;
+    }
+
+    public void exibirResumo() {
+        System.out.println("Pedido: " + numero);
+        System.out.println("Cliente: " + cliente.getNome());
+        System.out.println("E-mail: " + cliente.getEmail());
+    }
+}</pre></div></div><div class="bar"></div></section>
+<section class="s"><div class="top"><div><div class="k">4 · Exemplo 1 · UML</div><h2>Diagrama completo de classes</h2></div><div class="n">04</div></div><div class="diagram"><pre class="mermaid">classDiagram
+    class Cliente {
+        -String nome
+        -String email
+        +Cliente(nome, email)
+        +getNome() String
+        +getEmail() String
+    }
+    class Pedido {
+        -int numero
+        -Cliente cliente
+        +Pedido(numero, cliente)
+        +exibirResumo() void
+    }
+    Pedido "0..*" --> "1" Cliente : pertence a</pre><div class="cap">Cada Pedido mantém a referência a um Cliente. Um Cliente pode estar associado a vários pedidos.</div></div><div class="call"><b>Leitura:</b> a seta parte de Pedido, que declara o campo <span class="mono">cliente</span>. <span class="mono">0..*</span> significa zero ou muitos; <span class="mono">1</span>, exatamente um.</div><div class="bar"></div></section>
+<section class="s"><div class="top"><div><div class="k">5 · Exemplo 1 · Criação</div><h2>Instanciar e passar a referência</h2></div><div class="n">05</div></div><div class="g2"><div><div class="code-title">ProgramaPedido.java</div><pre>public class ProgramaPedido {
+    public static void main(String[] args) {
+        Cliente cliente = new Cliente(
+            "Ana Souza", "ana@email.com"
+        );
+
+        // Passa a referência de cliente
+        Pedido pedido = new Pedido(101, cliente);
+
+        pedido.exibirResumo();
+    }
+}</pre></div><div class="c"><h3>Passo a passo</h3><ol><li><span class="mono">new Cliente(...)</span> cria a instância.</li><li><span class="mono">cliente</span> guarda a referência para ela.</li><li>Essa referência é argumento de <span class="mono">new Pedido(101, cliente)</span>.</li><li>O construtor guarda-a em <span class="mono">this.cliente</span>.</li><li>Pedido usa o objeto associado para obter nome e e-mail.</li></ol></div></div><div class="diagram"><pre class="mermaid">sequenceDiagram
+    participant Programa
+    participant cliente as cliente:Cliente
+    participant pedido as pedido:Pedido
+    Programa->>cliente: new Cliente(...)
+    Programa->>pedido: new Pedido(101, cliente)
+    pedido->>cliente: getNome() / getEmail()</pre></div><div class="bar"></div></section>
+<section class="s"><div class="top"><div><div class="k">6 · Exemplo 2 · Código</div><h2>Disciplina associada a Professor</h2></div><div class="n">06</div></div><div class="case"><p><b>Problema:</b> cada disciplina registra código e nome, além de uma referência ao professor responsável. Ao mostrar seus dados, consulta o nome e a área do professor.</p></div><div class="g2"><div><div class="code-title">Professor.java</div><pre>public class Professor {
+    private String nome;
+    private String area;
+
+    public Professor(String nome, String area) {
+        this.nome = nome;
+        this.area = area;
+    }
+
+    public String getNome() { return nome; }
+    public String getArea() { return area; }
+}</pre></div><div><div class="code-title">Disciplina.java</div><pre>public class Disciplina {
+    private String codigo;
+    private String nome;
+    private Professor professor;
+
+    public Disciplina(String codigo, String nome,
+                      Professor professor) {
+        this.codigo = codigo;
+        this.nome = nome;
+        this.professor = professor;
+    }
+
+    public void exibirDados() {
+        System.out.println(codigo + " - " + nome);
+        System.out.println("Professor: " + professor.getNome());
+        System.out.println("Área: " + professor.getArea());
+    }
+}</pre></div></div><div class="bar"></div></section>
+<section class="s"><div class="top"><div><div class="k">7 · Exemplo 2 · Diagrama e objetos</div><h2>Uma Disciplina recebe um Professor</h2></div><div class="n">07</div></div><div class="g2"><div class="diagram"><pre class="mermaid">classDiagram
+    class Professor {
+        -String nome
+        -String area
+        +Professor(nome, area)
+        +getNome() String
+        +getArea() String
+    }
+    class Disciplina {
+        -String codigo
+        -String nome
+        -Professor professor
+        +Disciplina(codigo, nome, professor)
+        +exibirDados() void
+    }
+    Disciplina "0..*" --> "1" Professor : ministrada por</pre></div><div><div class="code-title">ProgramaDisciplina.java</div><pre>public class ProgramaDisciplina {
+    public static void main(String[] args) {
+        Professor professora = new Professor(
+            "Marina Costa", "Programação"
+        );
+
+        Disciplina poo = new Disciplina(
+            "POO2", "Programação Orientada a Objetos",
+            professora
+        );
+
+        poo.exibirDados();
+    }
+}</pre><div class="call"><b>Observe:</b> a instância professora é criada antes; sua referência é passada ao construtor de Disciplina.</div></div></div><div class="bar"></div></section>
+<section class="s"><div class="top"><div><div class="k">8 · Síntese</div><h2>O que a associação permite</h2></div><div class="n">08</div></div><div class="g3"><div class="c"><span class="tag">Campo</span><h3>Tipo de outra classe</h3><p><span class="mono">private Professor professor;</span> declara uma referência para uma instância Professor.</p></div><div class="c"><span class="tag">Construtor</span><h3>Recebe o objeto</h3><p>O parâmetro do tipo <span class="mono">Professor</span> deixa o programa fornecer a instância associada.</p></div><div class="c"><span class="tag">Uso</span><h3>Acessa comportamento</h3><p>Pelo campo, a classe pode chamar métodos públicos do objeto associado, como <span class="mono">professor.getNome()</span>.</p></div></div><div class="call warn"><b>Nos exemplos:</b> a instância associada é criada antes e o construtor recebe uma referência válida. Tratamento de <span class="mono">null</span> pode ser visto em outra aula.</div><div class="bar"></div></section>
+<section class="s"><div class="top"><div><div class="k">9 · Exercício não resolvido</div><h2>Reservas de quartos em uma pousada</h2></div><div class="n">09</div></div><div class="case"><p>Uma pousada deseja cadastrar reservas. Cada <b>Reserva</b> possui código, data de entrada e data de saída. Toda reserva pertence a um único <b>Cliente</b> e ocupa um único <b>Quarto</b>. Cliente possui nome e telefone. Quarto possui número, tipo e valor da diária.</p><p>Defina as três classes com atributos privados. A classe <span class="mono">Reserva</span> deve manter referências para um objeto Cliente e um objeto Quarto. Receba as duas referências no construtor de Reserva e guarde-as nos campos correspondentes.</p><p>No programa principal, crie primeiro um cliente e um quarto; em seguida, crie uma reserva passando as referências desses objetos. Exiba os dados da reserva, incluindo nome do cliente, número e tipo do quarto e valor da diária.</p></div><div class="call"><b>Regras:</b> um cliente pode fazer várias reservas e um quarto pode aparecer em várias reservas ao longo do tempo. Nesta versão, não implemente disponibilidade, cancelamento nem persistência.</div><div class="bar"></div></section>
+<section class="s"><div class="top"><div><div class="k">10 · Diagrama do exercício</div><h2>Cliente, Reserva e Quarto</h2></div><div class="n">10</div></div><div class="diagram"><pre class="mermaid">classDiagram
+    class Cliente {
+        -String nome
+        -String telefone
+        +Cliente(nome, telefone)
+        +getNome() String
+        +getTelefone() String
+    }
+    class Quarto {
+        -int numero
+        -String tipo
+        -double valorDiaria
+        +Quarto(numero, tipo, valorDiaria)
+        +getNumero() int
+        +getTipo() String
+        +getValorDiaria() double
+    }
+    class Reserva {
+        -int codigo
+        -String dataEntrada
+        -String dataSaida
+        -Cliente cliente
+        -Quarto quarto
+        +Reserva(codigo, entrada, saida, cliente, quarto)
+        +exibirResumo() void
+    }
+    Reserva "0..*" --> "1" Cliente : feita por
+    Reserva "0..*" --> "1" Quarto : ocupa</pre><div class="cap">Cada Reserva tem exatamente um Cliente e um Quarto associados; ambos podem participar de várias reservas ao longo do tempo.</div></div><div class="call"><b>Campos de associação:</b> <span class="mono">Cliente cliente</span> e <span class="mono">Quarto quarto</span>, ambos dentro de Reserva.</div><div class="bar"></div></section>
+<section class="s"><div class="top"><div><div class="k">11 · Perguntas para responder no código</div><h2>Implemente e justifique suas escolhas</h2></div><div class="n">11</div></div><div class="g2"><div class="c"><h3>Na definição das classes</h3><ol><li>Quais campos guardam valores simples e quais guardam referências?</li><li>Quais parâmetros o construtor de Reserva deve receber?</li><li>Por que os tipos dos campos associados são Cliente e Quarto?</li><li>Quais getters permitem montar o resumo da reserva?</li></ol></div><div class="c"><h3>Na criação dos objetos</h3><ol><li>Em que ordem instanciar Cliente, Quarto e Reserva? Por quê?</li><li>Quais variáveis passar ao construtor de Reserva?</li><li>Como Reserva obtém o nome do cliente e o número do quarto?</li><li>Quantas referências associadas Reserva mantém?</li></ol></div></div><div class="call warn"><b>Orientação ao professor:</b> peça que os alunos registrem as respostas como comentários junto às decisões correspondentes no código. Resolva as classes e o <span class="mono">main</span> em sala.</div><div class="bar"></div></section>
+<section class="s hero"><div class="k">Fechamento</div><h1>Uma associação começa com uma referência</h1><p class="lead">Declare um campo com o tipo da outra classe, receba a instância pelo construtor e use a referência para colaborar com o objeto associado.</p><div class="steps"><span>Declarar o campo</span><span>Criar a instância</span><span>Passar ao construtor</span><span>Usar a referência</span></div><div class="bar"></div></section>
+<div class="controls"><button id="prev" title="Anterior">←</button><span id="ct"></span><button id="next" title="Próximo">→</button><button id="full" title="Tela cheia">⛶</button></div>
+<script type="module">
+async function carregarMermaid(){for(const url of ['https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs','https://unpkg.com/mermaid@11/dist/mermaid.esm.min.mjs']){try{return(await import(url)).default}catch(erro){console.warn('Falha ao carregar Mermaid em',url,erro)}}return null}
+const mermaid=await carregarMermaid();if(mermaid){mermaid.initialize({startOnLoad:false,theme:'base',themeVariables:{primaryColor:'#e9f5f3',primaryTextColor:'#17272b',primaryBorderColor:'#0f766e',lineColor:'#617177',fontFamily:'Inter, Segoe UI, Arial'}});document.querySelectorAll('.mermaid').forEach((el,i)=>{el.dataset.source=el.textContent.trim();el.dataset.mermaidId='mermaid-diagrama-'+i});window.renderMermaidIn=async function(container){for(const b of [...container.querySelectorAll('.mermaid:not([data-rendered="true"])')]){try{const{svg,bindFunctions}=await mermaid.render(b.dataset.mermaidId,b.dataset.source);b.innerHTML=svg;bindFunctions?.(b);b.dataset.rendered='true'}catch(e){console.error('Erro Mermaid:',e);b.textContent=b.dataset.source;b.classList.add('mermaid-fallback')}}};window.dispatchEvent(new Event('mermaid-ready'))}else document.querySelectorAll('.mermaid').forEach(e=>e.classList.add('mermaid-fallback'));
+</script><script>
+const slides=[...document.querySelectorAll('.s')];let i=0;function show(x){i=Math.max(0,Math.min(slides.length-1,x));slides.forEach((s,k)=>s.classList.toggle('on',k===i));document.getElementById('ct').textContent=(i+1)+' / '+slides.length;document.querySelectorAll('.bar').forEach(b=>b.style.width=((i+1)/slides.length*100)+'%');window.renderMermaidIn?.(slides[i]);window.scrollTo(0,0)}document.getElementById('prev').onclick=()=>show(i-1);document.getElementById('next').onclick=()=>show(i+1);document.getElementById('full').onclick=()=>document.documentElement.requestFullscreen?.();addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(i+1)}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(i-1)}if(e.key==='Home')show(0);if(e.key==='End')show(slides.length-1);if(e.key.toLowerCase()==='f')document.documentElement.requestFullscreen?.()});show(0);addEventListener('mermaid-ready',()=>window.renderMermaidIn?.(slides[i]));
+</script></body></html>
