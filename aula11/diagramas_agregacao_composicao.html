@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agregação e composição — UML e Java</title>
+<style>
+:root{--ink:#17272b;--muted:#617177;--teal:#0f766e;--soft:#e9f5f3;--line:#dfe6e7;--paper:#f5f7f8;--code:#0b1720;--codeink:#e7f0f2}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 Inter,"Segoe UI",Arial,sans-serif}.hero{padding:64px max(6vw,24px) 44px;background:radial-gradient(circle at 90% 0,#dcf0eb,transparent 35%),linear-gradient(135deg,#fff,#f4f8f7)}.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);font-weight:800}.hero h1{font:clamp(38px,6vw,66px)/1.04 Georgia,serif;max-width:900px;margin:12px 0}.hero p{font-size:20px;color:#34474d;max-width:850px;margin:0}.nav{position:sticky;top:0;z-index:5;display:flex;gap:8px;overflow:auto;padding:12px max(6vw,24px);background:#ffffffed;border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}.nav a{white-space:nowrap;text-decoration:none;color:#28504d;border:1px solid var(--line);border-radius:999px;padding:8px 13px;font-size:13px;font-weight:700}.nav a:hover{background:var(--soft)}main{max-width:1240px;margin:auto;padding:26px 24px 80px}section{scroll-margin-top:76px;margin:20px 0 34px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:clamp(20px,3vw,34px);box-shadow:0 8px 26px #17333a0b}h2{font:clamp(30px,4vw,46px)/1.1 Georgia,serif;margin:0 0 12px}h3{font-size:19px;margin:0 0 10px}.intro{color:#40545a;max-width:960px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card{background:#f8fbfa;border:1px solid var(--line);border-radius:16px;padding:18px}.card p{margin:8px 0}.badge{display:inline-block;border-radius:999px;padding:4px 9px;background:var(--soft);color:#115e59;font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:800}.diagram{overflow:auto;border:1px solid var(--line);border-radius:16px;padding:16px;background:#fff;margin:18px 0}.mermaid{min-width:600px;text-align:center}.mermaid svg{max-width:100%;height:auto}.caption{font-size:13px;color:var(--muted);margin:8px 4px 0}.codebox{margin:14px 0}.code-title{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:#597077;font-weight:800;margin:0 0 7px}.code{background:var(--code);color:var(--codeink);border-radius:14px;padding:17px 19px;overflow:auto;font:13px/1.5 Consolas,"Courier New",monospace;white-space:pre;tab-size:4}.note{border-left:5px solid var(--teal);background:var(--soft);padding:14px 18px;border-radius:0 12px 12px 0;margin:16px 0;color:#29484a}.note.warn{border-color:#a16207;background:#fff8e9;color:#5f4313}.pair{display:grid;grid-template-columns:1fr 1fr;gap:18px}.small{font-size:14px;color:var(--muted)}footer{max-width:1240px;margin:auto;padding:0 24px 40px;color:var(--muted);font-size:13px}@media(max-width:850px){.grid,.grid3,.pair{grid-template-columns:1fr}.hero{padding-top:42px}.nav{padding-inline:16px}.code{font-size:12px}}@media print{.nav{display:none}body{background:white}section{box-shadow:none;break-inside:avoid}.hero{padding:28px}main{padding:0 12px}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="eyebrow">UML · Java</div><h1>Agregação e composição</h1><p>As classes e instâncias abaixo acompanham os pacotes <code>compras.agregacao</code> e <code>compras.composicao</code>.</p></header>
+<nav class="nav"><a href="#agregacao-uml">1. UML</a><a href="#agregacao-codigo">2. Classes Java</a><a href="#agregacao-objetos">3. Objetos</a><a href="#agregacao-main">4. Main</a><a href="#composicao-uml">Composição · UML</a><a href="#composicao-codigo">Classes Java</a><a href="#composicao-objetos">Objetos</a><a href="#composicao-main">Main</a></nav>
+<main>
+<section id="agregacao-uml"><div class="badge">Agregação · 1. UML</div><h2>Compra, cliente, produto e datas</h2><p class="intro">Compra recebe referências a Cliente e Produto já criados. Cliente e Produto também recebem objetos Data. O diamante aberto fica no todo que mantém a referência agregada.</p><div class="diagram"><pre class="mermaid">classDiagram
+    class Compra {
+        -Cliente cli
+        -Produto prod
+        -int quant
+        -double total
+        +Compra(Cliente, Produto, int)
+        +getCli() Cliente
+        +getProd() Produto
+        +getQuant() int
+        +getTotal() double
+    }
+    class Cliente {
+        -String nome
+        -int idade
+        -Data dtNasc
+        +Cliente(String, int, Data)
+    }
+    class Produto {
+        -String nome
+        -double preco
+        -Data validade
+        +Produto(String, double, Data)
+    }
+    class Data {
+        -int dia
+        -int mes
+        -int ano
+        +Data(int, int, int)
+    }
+    Compra "0..*" o-- "1" Cliente : cli
+    Compra "0..*" o-- "1" Produto : prod
+    Cliente "0..*" o-- "1" Data : dtNasc
+    Produto "0..*" o-- "1" Data : validade</pre><div class="caption">O construtor de Compra recebe cli e prod. O construtor de Cliente e Produto recebe uma Data já instanciada. O desenho mostra os campos de referência usados no código.</div></div><div class="note"><b>Leitura do código:</b> a existência de Compra não cria Cliente nem Produto. O programa instancia esses objetos antes e os entrega ao construtor de Compra.</div></section>
+<section id="agregacao-codigo"><div class="badge">Agregação · 2. Código das classes</div><h2>Pacote <code>compras.agregacao</code></h2><p class="intro">As classes preservam os atributos, construtores e operações de acesso presentes no pacote.</p><div class="pair">
+<div><div class="codebox"><div class="code-title">Data.java</div><pre class="code">package compras.agregacao;
+
+public class Data {
+    private int dia;
+    private int mes;
+    private int ano;
+
+    public Data(int dia, int mes, int ano) {
+        this.dia = dia;
+        this.mes = mes;
+        this.ano = ano;
+    }
+
+    public int getDia() { return dia; }
+    public void setDia(int dia) { this.dia = dia; }
+    public int getMes() { return mes; }
+    public void setMes(int mes) { this.mes = mes; }
+    public int getAno() { return ano; }
+    public void setAno(int ano) { this.ano = ano; }
+}</pre></div>
+<div class="codebox"><div class="code-title">Cliente.java</div><pre class="code">package compras.agregacao;
+
+public class Cliente {
+    private String nome;
+    private int idade;
+    private Data dtNasc;
+
+    public Cliente(String nome, int idade, Data dtNasc) {
+        this.nome = nome;
+        this.idade = idade;
+        this.dtNasc = dtNasc;
+    }
+
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
+    public int getIdade() { return idade; }
+    public void setIdade(int idade) { this.idade = idade; }
+    public Data getDtNasc() { return dtNasc; }
+    public void setDtNasc(Data dtNasc) { this.dtNasc = dtNasc; }
+}</pre></div></div>
+<div><div class="codebox"><div class="code-title">Produto.java</div><pre class="code">package compras.agregacao;
+
+public class Produto {
+    private String nome;
+    private double preco;
+    private Data validade;
+
+    public Produto(String nome, double preco, Data validade) {
+        this.nome = nome;
+        this.preco = preco;
+        this.validade = validade;
+    }
+
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
+    public double getPreco() { return preco; }
+    public void setPreco(double preco) { this.preco = preco; }
+    public Data getValidade() { return validade; }
+    public void setValidade(Data validade) { this.validade = validade; }
+}</pre></div>
+<div class="codebox"><div class="code-title">Compra.java</div><pre class="code">package compras.agregacao;
+
+public class Compra {
+    private Cliente cli;
+    private Produto prod;
+    private int quant;
+    private double total;
+
+    public Compra(Cliente cli, Produto prod, int quant) {
+        this.cli = cli;
+        this.prod = prod;
+        this.quant = quant;
+        this.total = this.quant * prod.getPreco();
+    }
+
+    public Cliente getCli() { return cli; }
+    public void setCli(Cliente cli) { this.cli = cli; }
+    public Produto getProd() { return prod; }
+    public void setProd(Produto prod) { this.prod = prod; }
+    public int getQuant() { return quant; }
+    public void setQuant(int quant) { this.quant = quant; }
+    public double getTotal() { return total; }
+    public void setTotal(double total) { this.total = total; }
+}</pre></div></div></div><div class="note warn"><b>Observe o cálculo:</b> <code>total</code> é calculado no construtor. Se depois forem alterados o produto, a quantidade ou o preço, esse valor não é recalculado automaticamente.</div></section>
+<section id="agregacao-objetos"><div class="badge">Agregação · 3. UML dos objetos</div><h2>Instâncias criadas pelo programa</h2><p class="intro">O diagrama representa o estado concreto montado no <code>TesteAgregacao.main</code>.</p><div class="diagram"><pre class="mermaid">flowchart LR
+    compra["cp : Compra<br/>quant = 5<br/>total = 12.5"]
+    cliente["cl1 : Cliente<br/>nome = José<br/>idade = 28"]
+    produto["p1 : Produto<br/>nome = Arroz<br/>preco = 2.5"]
+    nascimento["dt2 : Data<br/>dia = 2<br/>mes = 1<br/>ano = 1990"]
+    validade["dt1 : Data<br/>dia = 10<br/>mes = 1<br/>ano = 2002"]
+    compra -->|cli| cliente
+    compra -->|prod| produto
+    cliente -->|dtNasc| nascimento
+    produto -->|validade| validade
+    classDef todo fill:#e9f5f3,stroke:#0f766e,stroke-width:2px,color:#17272b
+    classDef parte fill:#fff,stroke:#70858a,stroke-width:1.5px,color:#17272b
+    class compra todo
+    class cliente,produto,nascimento,validade parte</pre><div class="caption">Os nomes à esquerda dos dois-pontos são variáveis do main; à direita, o tipo da instância. As setas nomeadas correspondem aos campos que guardam as referências.</div></div></section>
+<section id="agregacao-main"><div class="badge">Agregação · 4. Main</div><h2>Criação e uso dos objetos</h2><div class="codebox"><div class="code-title">TesteAgregacao.java</div><pre class="code">package compras.agregacao;
+
+public class TesteAgregacao {
+    public static void main(String[] args) {
+        Data dt1 = new Data(10, 1, 2002);
+        Data dt2 = new Data(2, 1, 1990);
+
+        Produto p1 = new Produto("Arroz", 2.5, dt1);
+        Cliente cl1 = new Cliente("José", 28, dt2);
+
+        Compra cp = new Compra(cl1, p1, 5);
+
+        System.out.println("Informações da Compra:");
+        System.out.println("Nome do cliente: " + cp.getCli().getNome());
+        System.out.println("Idade do cliente: " + cp.getCli().getIdade());
+        int dia = cp.getCli().getDtNasc().getDia();
+        int mes = cp.getCli().getDtNasc().getMes();
+        int ano = cp.getCli().getDtNasc().getAno();
+        System.out.println("Data de Nascimento do cliente: "
+                + dia + "/" + mes + "/" + ano);
+
+        System.out.println("Nome do produto: " + cp.getProd().getNome());
+        System.out.println("Quantidade: " + cp.getQuant());
+        dia = cp.getProd().getValidade().getDia();
+        mes = cp.getProd().getValidade().getMes();
+        ano = cp.getProd().getValidade().getAno();
+        System.out.println("Data de Validade do produto: "
+                + dia + "/" + mes + "/" + ano);
+
+        System.out.println("Valor total da compra: " + cp.getTotal());
+    }
+}</pre></div><div class="grid3"><div class="card"><h3>1 · Datas</h3><p><code>dt1</code> e <code>dt2</code> são criadas antes dos objetos que as recebem.</p></div><div class="card"><h3>2 · Produto e cliente</h3><p><code>p1</code> recebe <code>dt1</code>; <code>cl1</code> recebe <code>dt2</code>.</p></div><div class="card"><h3>3 · Compra</h3><p><code>cp</code> recebe as referências <code>cl1</code> e <code>p1</code>, além da quantidade 5.</p></div></div></section>
+<section id="composicao-uml"><div class="badge">Composição · 1. UML</div><h2>Pedido e ItemProduto</h2><p class="intro">Pedido cria seu ItemProduto dentro do construtor. O item é parte do pedido e o losango preenchido marca a composição.</p><div class="diagram"><pre class="mermaid">classDiagram
+    class Pedido {
+        -ItemProduto item
+        -double valor
+        +Pedido(String, int, double)
+        +getItem() ItemProduto
+        +setItem(ItemProduto) void
+        +getValor() double
+        +setValor(double) void
+    }
+    class ItemProduto {
+        -String nome
+        -int quant
+        -double preco
+        +ItemProduto(String, int, double)
+        +getNome() String
+        +getQuant() int
+        +getPreco() double
+    }
+    Pedido "1" *-- "1" ItemProduto : item</pre><div class="caption">O construtor de Pedido instancia ItemProduto com os dados recebidos e calcula valor a partir da quantidade e do preço.</div></div><div class="note warn"><b>Detalhe do pacote:</b> a classe também declara <code>setItem</code>, que permite trocar a referência depois da construção. O construtor expressa a composição; esse setter deixa a substituição da parte disponível no código.</div></section>
+<section id="composicao-codigo"><div class="badge">Composição · 2. Código das classes</div><h2>Pacote <code>compras.composicao</code></h2><div class="pair"><div><div class="codebox"><div class="code-title">ItemProduto.java</div><pre class="code">package compras.composicao;
+
+public class ItemProduto {
+    private String nome;
+    private int quant;
+    private double preco;
+
+    public ItemProduto(String nome, int quant, double preco) {
+        this.nome = nome;
+        this.quant = quant;
+        this.preco = preco;
+    }
+
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
+    public int getQuant() { return quant; }
+    public void setQuant(int quant) { this.quant = quant; }
+    public double getPreco() { return preco; }
+    public void setPreco(double preco) { this.preco = preco; }
+}</pre></div></div><div><div class="codebox"><div class="code-title">Pedido.java</div><pre class="code">package compras.composicao;
+
+public class Pedido {
+    private ItemProduto item;
+    private double valor;
+
+    public Pedido(String nome, int quant, double preco) {
+        this.item = new ItemProduto(nome, quant, preco);
+        this.valor = item.getQuant() * item.getPreco();
+    }
+
+    public ItemProduto getItem() { return item; }
+    public void setItem(ItemProduto item) { this.item = item; }
+    public double getValor() { return valor; }
+    public void setValor(double valor) { this.valor = valor; }
+}</pre></div></div></div><div class="note">A linha <code>this.item = new ItemProduto(nome, quant, preco);</code> é o ponto central: o próprio Pedido cria o objeto que mantém como parte.</div></section>
+<section id="composicao-objetos"><div class="badge">Composição · 3. UML dos objetos</div><h2>O pedido instanciado</h2><p class="intro">O estado abaixo é produzido pela chamada <code>new Pedido("Arroz", 4, 2.5)</code>.</p><div class="diagram"><pre class="mermaid">flowchart LR
+    pedido["pedido : Pedido<br/>valor = 10.0"]
+    item["item : ItemProduto<br/>nome = Arroz<br/>quant = 4<br/>preco = 2.5"]
+    pedido -->|item| item
+    classDef todo fill:#e9f5f3,stroke:#0f766e,stroke-width:2px,color:#17272b
+    classDef parte fill:#fff,stroke:#70858a,stroke-width:1.5px,color:#17272b
+    class pedido todo
+    class item parte</pre><div class="caption">A ligação mostra a referência armazenada em <code>pedido.item</code>. O valor calculado é 4 × 2,5 = 10,0.</div></div></section>
+<section id="composicao-main"><div class="badge">Composição · 4. Main</div><h2>Criação e consulta do objeto composto</h2><div class="codebox"><div class="code-title">TesteComposicao.java</div><pre class="code">package compras.composicao;
+
+public class TesteComposicao {
+    public static void main(String[] args) {
+        Pedido pedido = new Pedido("Arroz", 4, 2.5);
+
+        System.out.println("Valor total do pedido: " + pedido.getValor());
+        System.out.println("Nome do produto: " + pedido.getItem().getNome());
+        System.out.println("Preço do produto: " + pedido.getItem().getPreco());
+        System.out.println("Quantidade do produto: " + pedido.getItem().getQuant());
+    }
+}</pre></div><div class="note"><b>Sequência:</b> o main cria Pedido; o construtor de Pedido cria ItemProduto; depois, o programa consulta os dados do item por <code>pedido.getItem()</code>.</div></section>
+</main>
+<footer>Diagramas e código correspondem aos pacotes Java de agregação e composição.</footer>
+<script type="module">
+async function loadMermaid(){for(const u of ['https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs','https://unpkg.com/mermaid@11/dist/mermaid.esm.min.mjs'])try{return(await import(u)).default}catch(e){}return null}const m=await loadMermaid();if(m){m.initialize({startOnLoad:false,theme:'base',securityLevel:'strict',themeVariables:{primaryColor:'#e9f5f3',primaryTextColor:'#17272b',primaryBorderColor:'#0f766e',lineColor:'#617177',fontFamily:'Inter, Segoe UI, Arial'}});for(const [i,e] of [...document.querySelectorAll('.mermaid')].entries()){try{const r=await m.render('uml-'+i,e.textContent.trim());e.innerHTML=r.svg}catch(err){e.classList.add('fallback')}}}else document.querySelectorAll('.mermaid').forEach(e=>e.classList.add('fallback'));
+</script>
+</body></html>
