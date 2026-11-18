@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Diagrama UML - Sistema de Corrida</title>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'strict' });
+  </script>
+  <style>
+    :root { color-scheme: light; --ink:#17272b; --muted:#53676c; --teal:#0f766e; --line:#dfe6e7; --paper:#f5f7f8; }
+    * { box-sizing:border-box }
+    body { margin:0; background:var(--paper); color:var(--ink); font:16px/1.6 "Segoe UI",Arial,sans-serif }
+    header { padding:42px max(6vw,24px); background:linear-gradient(135deg,#fff,#e9f5f3); border-bottom:1px solid var(--line) }
+    header p { margin:0; color:var(--muted) }
+    h1,h2 { font-family:Georgia,serif; line-height:1.2 }
+    h1 { margin:0 0 8px; font-size:clamp(30px,5vw,46px) }
+    main { max-width:1120px; margin:28px auto 60px; padding:0 20px }
+    section { margin:20px 0; padding:clamp(20px,4vw,34px); background:white; border:1px solid var(--line); border-radius:18px }
+    h2 { margin:0 0 8px; font-size:28px }
+    .diagram { overflow-x:auto; padding:16px 0 }
+    .mermaid { min-width:680px; text-align:center }
+    .note { color:var(--muted); margin:10px 0 0 }
+    code { background:#eef4f4; padding:2px 5px; border-radius:4px }
+    @media print { body { background:#fff } section { break-inside:avoid; box-shadow:none } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Sistema de Corrida</h1>
+    <p>Diagramas UML baseados nas classes e nos objetos criados em <code>Main.java</code>.</p>
+  </header>
+  <main>
+    <section>
+      <h2>Diagrama de classes</h2>
+      <p>Uma corrida referencia um corredor e um trajeto por associações. O resultado é criado dentro de <code>Corrida</code> e representa composição.</p>
+      <div class="diagram"><pre class="mermaid">
+classDiagram
+    class Corredor {
+        -String nome
+        -String rg
+        +Corredor(String nome, String rg)
+        +getNome() String
+        +setNome(String nome) void
+        +getRg() String
+        +setRg(String rg) void
+    }
+    class Trajeto {
+        -String nome
+        -double distancia
+        -String local
+        +Trajeto(String nome, double distancia, String local)
+        +getNome() String
+        +setNome(String nome) void
+        +getDistancia() double
+        +setDistancia(double distancia) void
+        +getLocal() String
+        +setLocal(String local) void
+    }
+    class Corrida {
+        -Corredor corr
+        -Trajeto traj
+        -Resultado res
+        -String data
+        -String horario
+        +Corrida(Corredor corr, Trajeto traj, String tempoFinal, String situacao, String data, String horario)
+        +getCorr() Corredor
+        +setCorr(Corredor corr) void
+        +getTraj() Trajeto
+        +setTraj(Trajeto traj) void
+        +getRes() Resultado
+        +setRes(Resultado res) void
+        +getData() String
+        +setData(String data) void
+        +getHorario() String
+        +setHorario(String horario) void
+    }
+    class Resultado {
+        -String tempoFinal
+        -String situacao
+        +Resultado(String tempoFinal, String situacao)
+        +getTempoFinal() String
+        +setTempoFinal(String tempoFinal) void
+        +getSituacao() String
+        +setSituacao(String situacao) void
+    }
+    Corrida "0..*" --> "1" Corredor : associa
+    Corrida "0..*" --> "1" Trajeto : associa
+    Corrida "1" *-- "1" Resultado : compõe
+      </pre></div>
+      <p class="note">Cada instância de <code>Corrida</code> mantém exatamente um corredor, um trajeto e um resultado; um corredor ou trajeto pode ser referenciado por várias corridas.</p>
+    </section>
+    <section>
+      <h2>Diagrama de objetos</h2>
+      <p>Estado ilustrado para as duas corridas construídas no método <code>main</code>. O corredor <code>co</code> é compartilhado; cada corrida tem seu próprio trajeto e resultado.</p>
+      <div class="diagram"><pre class="mermaid">
+classDiagram
+    class co_Corredor["co : Corredor&lt;&lt;instância&gt;&gt;"] {
+        nome = Pedro Sousa
+        rg = abc-123
+    }
+    class tr_Trajeto["tr : Trajeto&lt;&lt;instância&gt;&gt;"] {
+        nome = Pista Circular
+        distancia = 200
+        local = Campo Maior
+    }
+    class tr2_Trajeto["tr2 : Trajeto&lt;&lt;instância&gt;&gt;"] {
+        nome = Pista com declive
+        distancia = 100
+        local = Teresina
+    }
+    class cr_Corrida["cr : Corrida&lt;&lt;instância&gt;&gt;"] {
+        data = 22/05/2026
+        horario = 10h20m
+    }
+    class cr2_Corrida["cr_2 : Corrida&lt;&lt;instância&gt;&gt;"] {
+        data = 10/11/2026
+        horario = 09h30m
+    }
+    class res1_Resultado["res : Resultado (de cr)&lt;&lt;instância&gt;&gt;"] {
+        tempoFinal = 10min30s
+        situacao = Concluído
+    }
+    class res2_Resultado["res : Resultado (de cr_2)&lt;&lt;instância&gt;&gt;"] {
+        tempoFinal = 20min30s
+        situacao = Pendente
+    }
+    cr_Corrida --> co_Corredor : corr
+    cr_Corrida --> tr_Trajeto : traj
+    cr_Corrida *-- res1_Resultado : res
+    cr2_Corrida --> co_Corredor : corr
+    cr2_Corrida --> tr2_Trajeto : traj
+    cr2_Corrida *-- res2_Resultado : res
+      </pre></div>
+      <p class="note">Os identificadores <code>res</code> aparecem em cada objeto <code>Corrida</code>; foram diferenciados no desenho para deixar claro que são dois objetos distintos.</p>
+    </section>
+  </main>
+</body>
+</html>
