@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Estudo de Caso - Registro de Corrida (POO-18/11/26)</title>
+  <style>
+    :root{--ink:#17272b;--muted:#53676c;--teal:#0f766e;--soft:#e9f5f3;--line:#dfe6e7;--paper:#f5f7f8}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.65 "Segoe UI",Arial,sans-serif}
+    header{padding:54px max(6vw,24px) 42px;background:radial-gradient(circle at 90% 0,#dcf0eb,transparent 35%),linear-gradient(135deg,#fff,#f4f8f7)}
+    .eyebrow{font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--teal);font-weight:800}
+    h1{font:clamp(36px,6vw,60px)/1.08 Georgia,serif;max-width:850px;margin:12px 0}
+    header p{font-size:19px;color:#34474d;max-width:780px;margin:0}
+    main{max-width:900px;margin:28px auto 70px;padding:0 22px}
+    section{background:#fff;border:1px solid var(--line);border-radius:20px;padding:clamp(22px,4vw,36px);margin:18px 0;box-shadow:0 8px 26px #17333a0b}
+    h2{font:30px/1.15 Georgia,serif;margin:0 0 14px}
+    p{margin:10px 0;color:#34474d}
+    ul{padding-left:22px;margin:12px 0;color:#34474d}
+    li{padding:4px 0}
+    .callout{border-left:5px solid var(--teal);background:var(--soft);padding:14px 18px;border-radius:0 12px 12px 0;margin-top:18px;color:#29484a}
+    footer{text-align:center;color:var(--muted);font-size:13px;padding:0 20px 30px}
+    @media print{body{background:white}section{box-shadow:none;break-inside:avoid}header{padding:28px}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="eyebrow">Programação Orientada a Objetos · Atividade</div>
+    <h1>Estudo de Caso - Registro de Corrida (POO-18/11/26)</h1>
+    <p>Cadastro de um corredor, um trajeto e o resultado de uma participação.</p>
+  </header>
+  <main>
+    <section>
+      <h2>Enunciado</h2>
+      <p>Uma organização precisa registrar a participação de corredores em provas. Para manter o sistema simples, cada registro representa uma única participação: uma corrida, um corredor e um trajeto.</p>
+      <p>O corredor e o trajeto são cadastrados separadamente antes de criar o registro da corrida. Cada registro se associa a exatamente um corredor e a exatamente um trajeto. A corrida também mantém um resultado próprio, com o tempo final e a situação do participante. Esse resultado é criado para aquela participação e não é compartilhado.</p>
+      <p>O sistema deve permitir consultar os dados da corrida, do corredor, do trajeto e do resultado.</p>
+    </section>
+    <section>
+      <h2>Requisitos</h2>
+      <ul>
+        <li>Cadastrar um corredor com nome e documento de identificação.</li>
+        <li>Cadastrar um trajeto com nome, distância e local.</li>
+        <li>Registrar uma corrida com data e horário, associando exatamente um corredor já cadastrado e exatamente um trajeto já cadastrado.</li>
+        <li>Para cada corrida, registrar exatamente um resultado com tempo final e situação: concluída ou desistente.</li>
+        <li>Consultar o registro da corrida e seus dados associados.</li>
+      </ul>
+    </section>
+  </main>
+  <footer>Atividade sobre agregação e composição · Relações 1:1</footer>
+</body>
+</html>

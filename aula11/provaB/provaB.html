@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prova B — Programação Orientada a Objetos</title>
+  <style>
+    :root { --ink:#172536; --muted:#526273; --line:#34495e; --blue:#eaf2f8; --pale:#f5f7f9; --accent:#164e76; }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); background:#e9edf1; font:11pt/1.5 Arial,Helvetica,sans-serif; }
+    main { max-width:900px; margin:28px auto; padding:58px 68px; background:white; box-shadow:0 3px 18px #0002; }
+    h1,h2,h3 { color:#102f49; line-height:1.2; }
+    h1 { text-align:center; font-size:15pt; line-height:1.15; margin:0 0 5px; }
+    .subtitle { text-align:center; color:var(--muted); margin:0 0 26px; }
+    .ident { border:1px solid #8394a3; padding:12px 15px; margin:20px 0 24px; }
+    .ident p { margin:5px 0; }
+    h2 { font-size:16pt; border-bottom:2px solid var(--accent); padding-bottom:6px; margin:28px 0 12px; }
+    h3 { font-size:12pt; margin:19px 0 7px; }
+    p { margin:8px 0; }
+    ol,ul { margin:7px 0 10px; padding-left:25px; }
+    li { margin:4px 0; }
+    .points { float:right; font-size:10pt; border:1px solid #65798a; padding:3px 8px; border-radius:3px; }
+    .diagram { margin:10px auto 12px; padding:7px; border:1px solid #aab6c0; background:#fff; text-align:center; overflow-x:auto; }
+    .diagram svg { display:block; width:100%; max-width:6.1in; height:auto; margin:auto; }
+    .caption { font-size:9.5pt; color:var(--muted); margin:5px 2px 0; text-align:left; }
+    .note { background:#f3f6f8; border-left:4px solid var(--accent); padding:9px 12px; margin:12px 0; }
+    .pagebreak { break-before:page; page-break-before:always; }
+    .answer-space { height:24px; border-bottom:1px dotted #9ca9b4; margin:6px 0; }
+    .scorepart { margin:10px 0; padding-left:11px; border-left:3px solid #9aa8b4; break-inside:avoid; page-break-inside:avoid; }
+    .execution-block { break-inside:avoid; page-break-inside:avoid; }
+    .mermaid-source { display:none; }
+    footer { margin-top:30px; padding-top:9px; border-top:1px solid #aab6c0; color:var(--muted); font-size:9pt; text-align:center; }
+    @media print {
+      @page { size:A4 portrait; margin:6mm; }
+      body { background:#fff; font-size:9.6pt; line-height:1.28; }
+      main { max-width:none; margin:0; padding:5mm 8mm; box-shadow:none; }
+      h1 { font-size:13pt; line-height:1.08; margin:0 auto 3px; max-width:100%; }
+      .subtitle { margin-bottom:7px; }
+      .ident { padding:5px 8px; margin:7px 0 9px; }
+      .ident p { margin:2px 0; }
+      h2 { margin:13px 0 7px; padding-bottom:4px; }
+      h3 { margin:10px 0 5px; }
+      p { margin:5px 0; }
+      ul,ol { margin:4px 0 6px; padding-left:20px; }
+      li { margin:2px 0; }
+      .diagram { break-inside:avoid; overflow:visible; padding:3px; margin:5px auto; }
+      .diagram svg { max-width:5in; }
+      .carrinho-question .diagram svg { max-width:4.5in; }
+      .caption { font-size:8.5pt; margin-top:3px; }
+      .note { padding:6px 8px; margin:7px 0; }
+      .scorepart { margin:6px 0; }
+      .answer-space { height:10px; margin:3px 0; }
+      h2,h3 { break-after:avoid; }
+      .pagebreak { break-before:page; page-break-before:always; }
+      section { break-inside:auto; }
+      footer { margin-top:12px; padding-top:5px; }
+      a { color:inherit; text-decoration:none; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>INSTITUTO FEDERAL DO PIAUÍ - TECNÓLOGO EM ANÁLISE E DESENVOLVIMENTO DE SISTEMAS (2026.02) - DISC: PROGRAMAÇÃO ORIENTADA A OBJETOS</h1>
+    <p class="subtitle">AVALIAÇÃO PRÁTICA · PROVA B · Valor total: 10,0 pontos</p>
+    <div class="ident">
+      <p><strong>Aluno(a):</strong> ____________________________________________________________</p>
+      <p><strong>Matrícula:</strong> ______________________________ &nbsp;&nbsp; <strong>Data:</strong> ____/____/________</p>
+      <p><strong>Instruções:</strong> Crie no IntelliJ IDEA um projeto chamado <code>ProvaB</code> com dois pacotes: <code>questao1</code> e <code>questao2</code>. Implemente em cada pacote a solução da questão correspondente. Ao final da prova, entregue os códigos-fonte do workspace do projeto IntelliJ com as duas questões respondidas. Leia os requisitos, mantenha os atributos encapsulados quando solicitado e confira as saídas do programa principal.</p>
+    </div>
+  </header>
+
+  <section class="carrinho-question">
+    <h2><span class="points">3,5 pontos</span> Questão 1 — Carrinho horizontal <small>(encapsulamento, sobrecarga e limites)</small></h2>
+    <p>Implemente a classe <strong>Carrinho</strong>, que se move somente na horizontal. A classe deve possuir o atributo inteiro privado <code>posicao</code>. A posição inicial do carrinho é <code>0</code>, e ele só pode ocupar posições inteiras entre <code>-10</code> e <code>10</code>, inclusive. Não modele altura nem movimento vertical.</p>
+    <p>Implemente o construtor padrão sem argumentos, que inicializa <code>posicao</code> em zero. Implemente as operações públicas <code>irParaDireita()</code> e <code>irParaEsquerda()</code>, sem argumentos, que tentam mover o carrinho uma posição; crie também versões sobrecarregadas <code>irParaDireita(int passos)</code> e <code>irParaEsquerda(int passos)</code>, que tentam movê-lo a quantidade de posições indicada. O argumento <code>passos</code> deve ser positivo. Em qualquer tentativa de ultrapassar o limite <code>10</code> ou <code>-10</code>, mantenha a posição atual e use <code>System.out</code> para informar que o movimento não foi realizado porque o limite foi atingido. Para argumentos menores ou iguais a zero, informe que a quantidade de passos é inválida e não altere a posição. Implemente ainda <code>consultarPosicao(): void</code>, que exibe a posição atual.</p>
+    <p><strong>Não</strong> crie getters nem setters. A posição só deve ser consultada ou alterada por meio das operações definidas para a classe.</p>
+    <div class="diagram">
+      <svg viewBox="0 0 690 345" role="img" aria-label="Diagrama UML da classe Carrinho">
+        <rect x="36" y="20" width="618" height="300" fill="#fff" stroke="#263b4d" stroke-width="2"/>
+        <rect x="36" y="20" width="618" height="52" fill="#eaf2f8" stroke="#263b4d" stroke-width="2"/>
+        <text x="345" y="53" text-anchor="middle" font-family="Arial" font-size="22" font-weight="bold" fill="#172536">Carrinho</text>
+        <line x1="36" y1="112" x2="654" y2="112" stroke="#263b4d" stroke-width="2"/>
+        <text x="60" y="96" font-family="Arial" font-size="17" fill="#172536">− posicao: int = 0</text>
+        <text x="60" y="145" font-family="Arial" font-size="16" fill="#172536">+ Carrinho()</text>
+        <text x="60" y="177" font-family="Arial" font-size="16" fill="#172536">+ irParaDireita(): void</text>
+        <text x="60" y="207" font-family="Arial" font-size="16" fill="#172536">+ irParaDireita(passos: int): void</text>
+        <text x="60" y="237" font-family="Arial" font-size="16" fill="#172536">+ irParaEsquerda(): void</text>
+        <text x="60" y="267" font-family="Arial" font-size="16" fill="#172536">+ irParaEsquerda(passos: int): void</text>
+        <text x="60" y="297" font-family="Arial" font-size="16" fill="#172536">+ consultarPosicao(): void</text>
+      </svg>
+      <p class="caption">Referência UML da classe Carrinho. Convenção: <strong>−</strong> privado; <strong>+</strong> público. O construtor padrão começa em zero. Os limites de movimento são −10 e 10. Implemente a classe; não é necessário reproduzir o desenho.</p>
+    </div>
+    <div class="execution-block">
+      <h3>Execução no programa principal</h3>
+      <p>No <code>main</code>, crie dois carrinhos com o construtor padrão e consulte a posição inicial de cada um. No primeiro carrinho, chame <code>irParaDireita()</code> duas vezes, depois <code>irParaDireita(3)</code>, <code>irParaEsquerda()</code> e <code>irParaEsquerda(2)</code>, consultando a posição após cada grupo de operações. Em seguida, chame <code>irParaDireita(8)</code> para chegar ao limite positivo e tente <code>irParaDireita()</code> mais uma vez, consultando a posição para confirmar que ela permaneceu em 10.</p>
+      <p>No segundo carrinho, chame <code>irParaEsquerda()</code>, depois <code>irParaEsquerda(4)</code> e <code>irParaDireita(2)</code>, consultando a posição após cada grupo. A seguir, chame <code>irParaEsquerda(5)</code> e tente <code>irParaEsquerda(3)</code>; exiba a mensagem de limite e consulte novamente a posição. Inclua também uma chamada com quantidade de passos zero para demonstrar a validação do argumento. Use os estados ilustrados abaixo como referência para conferir os resultados da sequência.</p>
+      <div class="diagram">
+        <svg viewBox="0 0 790 390" role="img" aria-label="Diagrama de objetos de dois carrinhos antes e depois da sequência de movimentos">
+          <text x="395" y="25" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="#172536">ESTADO INICIAL — após a construção</text>
+          <rect x="45" y="43" width="320" height="82" fill="#fff" stroke="#263b4d" stroke-width="2"/><rect x="45" y="43" width="320" height="38" fill="#eaf2f8" stroke="#263b4d" stroke-width="2"/><text x="205" y="68" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#172536">carrinho1 : Carrinho</text><text x="65" y="108" font-family="Arial" font-size="15" fill="#172536">posicao = 0</text>
+          <rect x="425" y="43" width="320" height="82" fill="#fff" stroke="#263b4d" stroke-width="2"/><rect x="425" y="43" width="320" height="38" fill="#eaf2f8" stroke="#263b4d" stroke-width="2"/><text x="585" y="68" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#172536">carrinho2 : Carrinho</text><text x="445" y="108" font-family="Arial" font-size="15" fill="#172536">posicao = 0</text>
+          <text x="395" y="156" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="#164e76">carrinho1: direita ×2, direita(3), esquerda(), esquerda(2), direita(8), direita()</text>
+          <text x="395" y="179" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="#164e76">carrinho2: esquerda(), esquerda(4), direita(2), esquerda(5), esquerda(3)</text>
+          <line x1="55" y1="195" x2="735" y2="195" stroke="#8394a3" stroke-dasharray="6 5"/>
+          <text x="395" y="225" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="#172536">ESTADO FINAL — após as operações e tentativas nos limites</text>
+          <rect x="45" y="243" width="320" height="82" fill="#fff" stroke="#263b4d" stroke-width="2"/><rect x="45" y="243" width="320" height="38" fill="#eaf2f8" stroke="#263b4d" stroke-width="2"/><text x="205" y="268" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#172536">carrinho1 : Carrinho</text><text x="65" y="308" font-family="Arial" font-size="15" fill="#172536">posicao = 10</text>
+          <rect x="425" y="243" width="320" height="82" fill="#fff" stroke="#263b4d" stroke-width="2"/><rect x="425" y="243" width="320" height="38" fill="#eaf2f8" stroke="#263b4d" stroke-width="2"/><text x="585" y="268" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#172536">carrinho2 : Carrinho</text><text x="445" y="308" font-family="Arial" font-size="15" fill="#172536">posicao = −8</text>
+          <text x="395" y="357" text-anchor="middle" font-family="Arial" font-size="14" fill="#526273">As tentativas irParaDireita() em 10 e irParaEsquerda(3) em −8 são recusadas e não mudam a posição.</text>
+        </svg>
+        <p class="caption">Diagrama de objetos para conferência dos estados inicial e final. Durante a execução, consulte também os estados intermediários conforme solicitado no <code>main</code>.</p>
+      </div>
+    </div>
+    <p class="scorepart"><strong>Critérios de pontuação:</strong> classe, encapsulamento, construtor e quatro operações de movimento sobrecarregadas, com validação de limites e argumentos — <strong>2,2 pontos</strong>; consulta da posição e mensagens adequadas — <strong>0,5 ponto</strong>; criação dos objetos e execução no <code>main</code> da sequência indicada, com conferência dos estados e dos limites — <strong>0,8 ponto</strong>. <strong>Total: 3,5 pontos.</strong></p>
+    <div class="answer-space"></div>
+  </section>
+
+  <section class="pagebreak">
+    <h2><span class="points">6,5 pontos</span> Questão 2 — Aulas particulares</h2>
+    <p>Um sistema de aulas particulares registra os professores e as aulas realizadas para estudantes. Cada aula está associada ao professor que a ministrou. O valor da aula depende da quantidade de horas e do valor cobrado por hora pelo professor associado.</p>
+    <h3>Modelo das classes</h3>
+    <ul>
+      <li><strong>Professor:</strong> classe encapsulada com <code>nome: String</code>, <code>disciplina: String</code> e <code>valorHora: double</code>. Deve possuir construtor padrão e construtor com parâmetros, getters e setters para todos os atributos e <code>mostrarDados(): void</code>, que usa a saída padrão para mostrar os dados do objeto.</li>
+      <li><strong>AulaParticular:</strong> classe encapsulada com <code>data: String</code>, <code>codigoAluno: String</code>, <code>professor: Professor</code>, <code>horasDaAula: double</code> e <code>valorTotal: double</code>. Deve possuir construtor padrão e construtor com parâmetros, getters e setters para todos os atributos e <code>mostrarDados(): void</code>, que usa a saída padrão para mostrar os dados da aula.</li>
+      <li>O construtor parametrizado de <code>AulaParticular</code> deve receber os dados necessários e calcular <code>valorTotal</code> no momento em que o objeto for criado: horas da aula multiplicadas pelo valor-hora do professor associado.</li>
+      <li>Implemente em <code>AulaParticular</code> <code>mostrarValorHoraProfessor(): void</code>, que exibe o valor-hora do professor associado; <code>calcularValorTotal(): double</code>, que calcula e atualiza o total; e <code>oferecerDesconto(): void</code>, que mostra o total antes do desconto, aplica 10% de desconto e mostra o novo total.</li>
+    </ul>
+    <div class="diagram">
+      <svg viewBox="0 0 1080 690" role="img" aria-label="Diagrama UML das classes Professor e AulaParticular com associação">
+        <rect x="20" y="20" width="490" height="610" fill="#fff" stroke="#263b4d" stroke-width="2"/><rect x="20" y="20" width="490" height="52" fill="#eaf2f8" stroke="#263b4d" stroke-width="2"/><text x="265" y="54" text-anchor="middle" font-family="Arial" font-size="22" font-weight="bold" fill="#172536">Professor</text>
+        <line x1="20" y1="160" x2="510" y2="160" stroke="#263b4d" stroke-width="2"/>
+        <text x="42" y="99" font-family="Arial" font-size="16" fill="#172536">− nome: String</text><text x="42" y="123" font-family="Arial" font-size="16" fill="#172536">− disciplina: String</text><text x="42" y="147" font-family="Arial" font-size="16" fill="#172536">− valorHora: double</text>
+        <text x="42" y="188" font-family="Arial" font-size="15" fill="#172536">+ Professor()</text><text x="42" y="212" font-family="Arial" font-size="15" fill="#172536">+ Professor(String, String, double)</text>
+        <text x="42" y="246" font-family="Arial" font-size="15" fill="#172536">+ getNome(): String</text><text x="42" y="270" font-family="Arial" font-size="15" fill="#172536">+ setNome(nome: String): void</text>
+        <text x="42" y="298" font-family="Arial" font-size="15" fill="#172536">+ getDisciplina(): String</text><text x="42" y="322" font-family="Arial" font-size="15" fill="#172536">+ setDisciplina(disciplina: String): void</text>
+        <text x="42" y="350" font-family="Arial" font-size="15" fill="#172536">+ getValorHora(): double</text><text x="42" y="374" font-family="Arial" font-size="15" fill="#172536">+ setValorHora(valorHora: double): void</text>
+        <line x1="20" y1="395" x2="510" y2="395" stroke="#9aa8b4"/><text x="42" y="425" font-family="Arial" font-size="15" fill="#172536">+ mostrarDados(): void</text>
+        <rect x="570" y="20" width="490" height="610" fill="#fff" stroke="#263b4d" stroke-width="2"/><rect x="570" y="20" width="490" height="52" fill="#eaf2f8" stroke="#263b4d" stroke-width="2"/><text x="815" y="54" text-anchor="middle" font-family="Arial" font-size="22" font-weight="bold" fill="#172536">AulaParticular</text>
+        <line x1="570" y1="190" x2="1060" y2="190" stroke="#263b4d" stroke-width="2"/>
+        <text x="592" y="98" font-family="Arial" font-size="15" fill="#172536">− data: String</text><text x="592" y="121" font-family="Arial" font-size="15" fill="#172536">− codigoAluno: String</text><text x="592" y="144" font-family="Arial" font-size="15" fill="#172536">− professor: Professor</text><text x="592" y="167" font-family="Arial" font-size="15" fill="#172536">− horasDaAula: double</text><text x="592" y="187" font-family="Arial" font-size="15" fill="#172536">− valorTotal: double</text>
+        <text x="592" y="218" font-family="Arial" font-size="14" fill="#172536">+ AulaParticular()</text><text x="592" y="241" font-family="Arial" font-size="14" fill="#172536">+ AulaParticular(String, String, Professor, double)</text>
+        <text x="592" y="273" font-family="Arial" font-size="14" fill="#172536">+ getData(): String</text><text x="592" y="295" font-family="Arial" font-size="14" fill="#172536">+ setData(data: String): void</text>
+        <text x="592" y="319" font-family="Arial" font-size="14" fill="#172536">+ getCodigoAluno(): String</text><text x="592" y="341" font-family="Arial" font-size="14" fill="#172536">+ setCodigoAluno(codigo: String): void</text>
+        <text x="592" y="365" font-family="Arial" font-size="14" fill="#172536">+ getProfessor(): Professor</text><text x="592" y="387" font-family="Arial" font-size="14" fill="#172536">+ setProfessor(professor: Professor): void</text>
+        <text x="592" y="411" font-family="Arial" font-size="14" fill="#172536">+ getHorasDaAula(): double</text><text x="592" y="433" font-family="Arial" font-size="14" fill="#172536">+ setHorasDaAula(horas: double): void</text>
+        <text x="592" y="457" font-family="Arial" font-size="14" fill="#172536">+ getValorTotal(): double</text><text x="592" y="479" font-family="Arial" font-size="14" fill="#172536">+ setValorTotal(valor: double): void</text>
+        <line x1="570" y1="493" x2="1060" y2="493" stroke="#9aa8b4"/><text x="592" y="518" font-family="Arial" font-size="14" fill="#172536">+ mostrarDados(): void</text><text x="592" y="540" font-family="Arial" font-size="14" fill="#172536">+ mostrarValorHoraProfessor(): void</text><text x="592" y="562" font-family="Arial" font-size="14" fill="#172536">+ calcularValorTotal(): double</text><text x="592" y="584" font-family="Arial" font-size="14" fill="#172536">+ oferecerDesconto(): void</text>
+        <line x1="570" y1="112" x2="510" y2="112" stroke="#263b4d" stroke-width="2"/><path d="M520 106 L510 112 L520 118" fill="none" stroke="#263b4d" stroke-width="2"/><text x="540" y="137" text-anchor="middle" font-family="Arial" font-size="12" fill="#526273">professor</text>
+        <rect x="22" y="642" width="1036" height="30" fill="#f5f7f9"/><text x="36" y="662" font-family="Arial" font-size="14" fill="#172536">− privado · + público · O campo professor associa cada aula ao Professor responsável.</text>
+      </svg>
+      <p class="caption">Referência UML das duas classes e da associação unidirecional de <code>AulaParticular</code> para <code>Professor</code>, indicada pelo atributo <code>professor</code>. Implemente as classes; não é necessário reproduzir o desenho.</p>
+    </div>
+    <div class="note"><strong>Regra de cálculo:</strong> <code>valorTotal = horasDaAula × professor.valorHora</code>. Se as horas da aula ou o valor-hora do professor mudar, recalcule o total antes de exibi-lo ou oferecer desconto. O desconto altera o valor total somente daquela aula.</div>
+    <h3>Objetos para o programa principal</h3>
+    <p>Crie dois professores e três aulas. A professora <strong>Joana Martins</strong>, de <code>Matemática</code>, cobra <strong>R$ 80,00</strong> por hora e ficará associada a duas aulas. O professor <strong>Bruno Almeida</strong>, de <code>Física</code>, cobra <strong>R$ 95,00</strong> por hora e ficará associado à terceira aula.</p>
+    <p>Use estes dados: <code>a1</code>: 06/11/2026, estudante <code>AL-104</code>, Joana, 2,5 horas; <code>a2</code>: 06/11/2026, estudante <code>AL-208</code>, Joana, 1,5 hora; <code>a3</code>: 07/11/2026, estudante <code>AL-315</code>, Bruno, 2 horas.</p>
+    <div class="diagram">
+      <svg viewBox="0 0 980 560" role="img" aria-label="Diagrama de objetos com dois professores e três aulas particulares">
+        <text x="490" y="25" text-anchor="middle" font-family="Arial" font-size="19" font-weight="bold" fill="#172536">OBJETOS CRIADOS NO PROGRAMA PRINCIPAL</text>
+        <rect x="22" y="56" width="288" height="145" fill="#fff" stroke="#263b4d" stroke-width="2"/><rect x="22" y="56" width="288" height="38" fill="#eaf2f8" stroke="#263b4d" stroke-width="2"/><text x="166" y="81" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#172536">p1 : Professor</text><line x1="22" y1="94" x2="310" y2="94" stroke="#263b4d"/><text x="38" y="119" font-family="Arial" font-size="14" fill="#172536">nome = "Joana Martins"</text><text x="38" y="143" font-family="Arial" font-size="14" fill="#172536">disciplina = "Matemática"</text><text x="38" y="167" font-family="Arial" font-size="14" fill="#172536">valorHora = 80,00</text>
+        <rect x="670" y="56" width="288" height="145" fill="#fff" stroke="#263b4d" stroke-width="2"/><rect x="670" y="56" width="288" height="38" fill="#eaf2f8" stroke="#263b4d" stroke-width="2"/><text x="814" y="81" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#172536">p2 : Professor</text><line x1="670" y1="94" x2="958" y2="94" stroke="#263b4d"/><text x="686" y="119" font-family="Arial" font-size="14" fill="#172536">nome = "Bruno Almeida"</text><text x="686" y="143" font-family="Arial" font-size="14" fill="#172536">disciplina = "Física"</text><text x="686" y="167" font-family="Arial" font-size="14" fill="#172536">valorHora = 95,00</text>
+        <rect x="22" y="285" width="288" height="188" fill="#fff" stroke="#263b4d" stroke-width="2"/><rect x="22" y="285" width="288" height="38" fill="#eaf2f8" stroke="#263b4d" stroke-width="2"/><text x="166" y="310" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#172536">a1 : AulaParticular</text><line x1="22" y1="323" x2="310" y2="323" stroke="#263b4d"/><text x="38" y="348" font-family="Arial" font-size="14" fill="#172536">data = "06/11/2026"</text><text x="38" y="371" font-family="Arial" font-size="14" fill="#172536">codigoAluno = "AL-104"</text><text x="38" y="394" font-family="Arial" font-size="14" fill="#172536">professor = p1</text><text x="38" y="417" font-family="Arial" font-size="14" fill="#172536">horasDaAula = 2,5</text><text x="38" y="440" font-family="Arial" font-size="14" fill="#172536">valorTotal = 200,00</text>
+        <rect x="346" y="285" width="288" height="188" fill="#fff" stroke="#263b4d" stroke-width="2"/><rect x="346" y="285" width="288" height="38" fill="#eaf2f8" stroke="#263b4d" stroke-width="2"/><text x="490" y="310" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#172536">a2 : AulaParticular</text><line x1="346" y1="323" x2="634" y2="323" stroke="#263b4d"/><text x="362" y="348" font-family="Arial" font-size="14" fill="#172536">data = "06/11/2026"</text><text x="362" y="371" font-family="Arial" font-size="14" fill="#172536">codigoAluno = "AL-208"</text><text x="362" y="394" font-family="Arial" font-size="14" fill="#172536">professor = p1</text><text x="362" y="417" font-family="Arial" font-size="14" fill="#172536">horasDaAula = 1,5</text><text x="362" y="440" font-family="Arial" font-size="14" fill="#172536">valorTotal = 120,00</text>
+        <rect x="670" y="285" width="288" height="188" fill="#fff" stroke="#263b4d" stroke-width="2"/><rect x="670" y="285" width="288" height="38" fill="#eaf2f8" stroke="#263b4d" stroke-width="2"/><text x="814" y="310" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#172536">a3 : AulaParticular</text><line x1="670" y1="323" x2="958" y2="323" stroke="#263b4d"/><text x="686" y="348" font-family="Arial" font-size="14" fill="#172536">data = "07/11/2026"</text><text x="686" y="371" font-family="Arial" font-size="14" fill="#172536">codigoAluno = "AL-315"</text><text x="686" y="394" font-family="Arial" font-size="14" fill="#172536">professor = p2</text><text x="686" y="417" font-family="Arial" font-size="14" fill="#172536">horasDaAula = 2,0</text><text x="686" y="440" font-family="Arial" font-size="14" fill="#172536">valorTotal = 190,00</text>
+        <path d="M166 201 L166 250 L166 285" fill="none" stroke="#263b4d" stroke-width="2"/><path d="M166 250 L490 250 L490 285" fill="none" stroke="#263b4d" stroke-width="2"/><text x="175" y="239" font-family="Arial" font-size="13" fill="#526273">professora</text>
+        <path d="M814 201 L814 250 L814 285" fill="none" stroke="#263b4d" stroke-width="2"/><text x="823" y="239" font-family="Arial" font-size="13" fill="#526273">professor</text>
+        <text x="490" y="518" text-anchor="middle" font-family="Arial" font-size="14" fill="#526273">a1 e a2 referenciam a mesma instância p1; a3 referencia p2.</text><text x="490" y="541" text-anchor="middle" font-family="Arial" font-size="14" fill="#526273">Totais antes de desconto: 2,5 × 80 = 200; 1,5 × 80 = 120; 2 × 95 = 190.</text>
+      </svg>
+      <p class="caption">Diagrama de objetos de referência. Os totais apresentados são os valores antes de qualquer desconto.</p>
+    </div>
+    <h3>Execução no programa principal</h3>
+    <p>Depois de implementar as classes, construa no <code>main</code> os dois professores e as três aulas com os dados indicados. Associe <code>p1</code> às aulas <code>a1</code> e <code>a2</code>, e <code>p2</code> à aula <code>a3</code>. Chame <code>mostrarDados()</code> para cada professor e para cada aula; consulte e exiba o valor-hora do professor associado a <code>a1</code>; e recalcule e exiba o total de <code>a2</code>.</p>
+    <p>Aplique o desconto de 10% somente em <code>a1</code>, mostrando o valor antes e depois. Exiba novamente os dados de <code>a1</code> e <code>a2</code> para verificar que o desconto em uma aula não alterou a outra. Por último, ainda no <code>main</code>, calcule e mostre a soma dos valores atuais das aulas associadas a <code>p1</code> (Joana), considerando o desconto aplicado a <code>a1</code> e sem incluir <code>a3</code>.</p>
+    <p class="scorepart"><strong>Critérios de pontuação:</strong> classes encapsuladas, atributos e tipos corretos, construtores, getters/setters de todos os atributos e operações solicitadas — <strong>4,0 pontos</strong>; criação e associação dos cinco objetos no <code>main</code>, chamadas de exibição e cálculo, aplicação e conferência do desconto — <strong>1,5 ponto</strong>; soma correta dos valores atuais das aulas de <code>p1</code>, excluindo <code>a3</code> — <strong>1,0 ponto</strong>. <strong>Total: 6,5 pontos.</strong></p>
+    <div class="note"><strong>Observação:</strong> os diagramas e os nomes dos objetos são referências para a implementação. Não é necessário desenhar diagramas; a entrega avaliada é o código-fonte Java do projeto IntelliJ.</div>
+  </section>
+  <footer>Prova B · Programação Orientada a Objetos · Documento preparado para impressão ou cópia para editor de texto</footer>
+</main>
+<pre class="mermaid-source">Especificação Mermaid de referência.
+classDiagram
+  class Carrinho {
+    -int posicao
+    +Carrinho()
+    +irParaDireita() void
+    +irParaDireita(int passos) void
+    +irParaEsquerda() void
+    +irParaEsquerda(int passos) void
+    +consultarPosicao() void
+  }
+  class Professor {
+    -String nome
+    -String disciplina
+    -double valorHora
+    +Professor()
+    +Professor(String, String, double)
+    +mostrarDados() void
+  }
+  class AulaParticular {
+    -String data
+    -String codigoAluno
+    -Professor professor
+    -double horasDaAula
+    -double valorTotal
+    +AulaParticular()
+    +AulaParticular(String, String, Professor, double)
+    +mostrarDados() void
+    +mostrarValorHoraProfessor() void
+    +calcularValorTotal() double
+    +oferecerDesconto() void
+  }
+  AulaParticular --&gt; Professor : professor
+</pre>
+</body>
+</html>
